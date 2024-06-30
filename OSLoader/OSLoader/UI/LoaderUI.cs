@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace OSLoader
 {
-    class LoaderUI : MonoBehaviour
+    internal class LoaderUI : MonoBehaviour
     {
-        internal bool UIEnabled { get; private set; }  = false;
+        public bool UIEnabled { get; private set; }  = false;
 
         private const int edgeWidth = 350;
         private const int modEntryHeight = 40;

@@ -5,7 +5,7 @@ using System.IO;
 using Newtonsoft.Json;
 
 namespace OSLoader {
-    public class LoaderConfig
+    internal class LoaderConfig
     {
         public bool logDetails = false;
 

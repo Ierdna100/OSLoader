@@ -6,11 +6,10 @@ using Newtonsoft.Json;
 using System.Reflection;
 using System.Linq;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace OSLoader
 {
-    class ModReference
+    internal class ModReference
     {
         public string assemblyFilepath;
         public bool valid = false;
@@ -79,7 +78,7 @@ namespace OSLoader
             }
 
             GameObject modGO = new GameObject(config.name, entrypoint.First());
-            Object.DontDestroyOnLoad(modGO);
+            GameObject.DontDestroyOnLoad(modGO);
             actualMod = modGO.GetComponent<Mod>();
             actualMod.config = config;
             actualMod.OnModLoaded();

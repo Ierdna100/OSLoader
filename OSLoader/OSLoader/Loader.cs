@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 namespace OSLoader
 {
-    class Loader
+    internal class Loader
     {
         public static Loader Instance { get; private set; }
 
@@ -19,15 +19,15 @@ namespace OSLoader
         private const string loaderConfigFileFilepath = @"loader_config.json";
         private const string modsFilepath = @"mods";
 
-        internal List<ModReference> mods = new List<ModReference>();
+        public List<ModReference> mods = new List<ModReference>();
 
-        internal Logger logger = new Logger("OS Loader", true, true);
+        public Logger logger = new Logger("OS Loader", true, true);
 
-        internal LoaderConfig config;
+        public LoaderConfig config;
 
-        internal LoaderUI loaderUI;
+        public LoaderUI loaderUI;
 
-        internal Loader()
+        public Loader()
         {
             Instance = this;
 
@@ -39,7 +39,7 @@ namespace OSLoader
             logger.Log("OS Loader listening for game start...");
         }
 
-        internal void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
+        private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
         {
             if (!ModloaderInitialized) OnGameStart();
         }

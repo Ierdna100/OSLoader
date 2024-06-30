@@ -5,7 +5,7 @@ using System.IO;
 
 namespace OSLoader
 {
-    static class ModAPI
+    public static class ModAPI
     {
         public static string ConfigFilePath { get; private set; }
 
