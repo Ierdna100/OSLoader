@@ -84,8 +84,8 @@ namespace OSLoader
             actualMod.config = config;
             actualMod.OnModLoaded();
 
-            Loader.Instance.logger.Log($"Loaded mod {config.name} ({Loader.Instance.mods.Where(e => e.loaded).Count()}/{Loader.Instance.mods.Count})");
             loaded = true;
+            Loader.Instance.logger.Log($"Loaded mod {config.name} ({Loader.Instance.mods.Where(e => e.loaded).Count()}/{Loader.Instance.mods.Count})");
         }
     }
 }
