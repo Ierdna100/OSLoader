@@ -3,32 +3,30 @@ Mod loader for Obenseuer based on Unity Doorstop
 
 ## Projects present in the repository
 ### OSLoader
-Actually loads mods found in the `.../Obenseuer/OSLoader/mods/` folder in the game making use of Doorstop. 
-Doorstop initializes with a library called `winhttp.dll`, which is loaded instead of the one in your Windows installation if present
-in the game files, which then searches for the DLL with `Doorstop.Entrypoint::Start()` (OSLoader).
+Loads mods found in the `.../Obenseuer/OSLoader/mods/` folder in the game making use of Doorstop. 
+Doorstop initializes with a library called `winhttp.dll`, which is loaded instead of the one in your Windows installation$^1$.
 
 ### TestMod
-Testing if mods work. I don't know why you'd want to use this, but it's there. Mods can currently not access
-private/internal variables, will come with a future version.
+Testing if mods work. I don't know why you'd want to use this, but it's there. Currently, mods can not access
+private/internal variables. This will come with a future version.
 
 ## Installation
->  (you will have to build it yourself until version 1.0.0), I am not shipping this in its current incomplete state.
+>  You will have to build it yourself until version 1.0.0. I am not shipping this in its current incomplete state.
 
 1. Download Unity `2019.4.40f1`
-2. Create an empty project with it
-3. Compile project
-4. Copy everything from the compiled project's `Project/Managed/` folder to `Obenseuer/Managed/` $^1$
-5. Only then copy all of the required assemblies to each project's `Depdenencies` folder as instructed in the `instructions.txt` of each.
-6. You should now be able to build the project (Note that a Post-Build script is present, you will have to configure it to run on your machine (paths are absolute) or disable it all together)
-
+2. Create an empty Unity project with version `2019.4.40f1`
+3. Build the Unity project from the Build menu
+4. Copy everything from the built game's `Empty Game/Managed/` folder to `Obenseuer/Managed/` $^2$
+5. Only then copy all of the required assemblies to each Visual Studio Solutions' (OSLoader and TestMod) `Depdenencies` folder as instructed in the `instructions.txt` of each.
+6. You should now be able to build the Visual Studio Solution (Note that a Post-Build script is present, you will have to configure it to run on your machine (paths are absolute) or disable it all together)
 7. Download the custom `winhttp.dll` library from [here](https://github.com/NeighTools/UnityDoorstop/releases/tag/v4.3.0) (release version contains no Doorstop logs, verbose does)
-8. Put `winhttp.dll` in the game's root directory
+8. Put `winhttp.dll` in the game's root directory (where `Obenseuer.exe` is found)
 9. Create a folder with the name `OSLoader` in the game's root directory
 10. Put `OSLoader.dll`, `UnityEngine.CoreModule.dll` and `Newtonsoft.Json.dll` in `Obenseuer/OSLoader/`
 11. You can put mods in a folder named `mods`, such that the directory looks like this: `Obenseuer/OSLoader/mods/`
 12. Create a file in the game's root named `doorstop_config.ini`
-13. Put the contents present in the section below in the file
-14. Launch the game, and enjoy your mods!
+13. Copy the contents of the section below named `doorstop_config.ini` to the file you created in step 12
+14. Launch the game and enjoy your mods!
 
 ## `doorstop_config.ini`
 ```ini
@@ -53,4 +51,6 @@ debug_address=127.0.0.1:10000
 ```
 
 ## References
-$^1$ Obenseuer assemblies come stripped, we need clean ones
+$^1$ This happens when any Windows library is present in a game's files. The custom library then gets loaded instead. In our case
+`winhttp.dll` launches `Doorstop.Entrypoint::Start()` (OSLoader).
+$^2$ Obenseuer assemblies come stripped, we need clean ones
