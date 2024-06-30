@@ -39,7 +39,7 @@ namespace OSLoader
 
             string rawModConfig = File.ReadAllText(configFilepath);
             config = JsonConvert.DeserializeObject<ModConfig>(rawModConfig);
-            if (!config.Check())
+            if (!config.IsValid())
             {
                 Loader.Instance.logger.Log($"Unable to create mod reference at path {filepath}: Config file check failed!");
                 return;

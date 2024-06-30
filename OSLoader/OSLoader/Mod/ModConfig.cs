@@ -11,7 +11,7 @@ namespace OSLoader
         public bool loadOnStart = false;
         public string version;
 
-        public bool Check()
+        public bool IsValid()
         {
             return name != null && version != null;
         }

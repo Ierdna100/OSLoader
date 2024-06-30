@@ -20,7 +20,7 @@ namespace OSLoader {
                 try
                 {
                     configRef = JsonConvert.DeserializeObject<LoaderConfig>(rawLoaderConfig);
-                    if (!configRef.Check())
+                    if (!configRef.IsValid())
                     {
                         Loader.Instance.logger.Log("Config file has invalid structure, resetting to default values...");
                         configRef = new LoaderConfig();
@@ -46,7 +46,7 @@ namespace OSLoader {
             Loader.Instance.logger.logDetails = configRef.logDetails;
         }
 
-        public bool Check()
+        public bool IsValid()
         {
             return true;
         }
