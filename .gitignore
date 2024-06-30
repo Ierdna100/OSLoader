@@ -3,7 +3,8 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
-[Dd]ependencies/
+#[Dd]ependencies/*.dll
+*.dll
 
 # User-specific files
 *.rsuser
