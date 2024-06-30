@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\dependencies\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>..\dependencies\UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>..\dependencies\UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\dependencies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Uncomment this and change the paths to something that makes sense for you to auotmate moving the built file. -->
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="copy &quot;$(TargetPath)&quot; &quot;D:\steam library\steamapps\common\Obenseuer\OSLoader&quot;&#xD;&#xA;" />
+    <Exec Command="copy &quot;$(TargetPath)&quot; &quot;D:\code\csharp\OSLoader\TestMod\Dependencies&quot;&#xD;&#xA;" />
+	</Target> 
+
+</Project>

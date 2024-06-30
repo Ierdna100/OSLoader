@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.IO;
+using Newtonsoft.Json;
+
+namespace OSLoader {
+    public class LoaderConfig
+    {
+        public bool logDetails = false;
+
+        public static void Load(string loaderFilepath, string configFilepath, string loaderConfigFileFilepath, out LoaderConfig configRef)
+        {
+            if (File.Exists(Path.Combine(loaderFilepath, configFilepath, loaderConfigFileFilepath)))
+            {
+                Loader.Instance.logger.Log("Config file found, reading...");
+                string rawLoaderConfig = File.ReadAllText(Path.Combine(loaderFilepath, configFilepath, loaderConfigFileFilepath));
+                Loader.Instance.logger.Detail("Raw Loader Config: " + rawLoaderConfig);
+
+                try
+                {
+                    configRef = JsonConvert.DeserializeObject<LoaderConfig>(rawLoaderConfig);
+                    if (!configRef.Check())
+                    {
+                        Loader.Instance.logger.Log("Config file has invalid structure, resetting to default values...");
+                        configRef = new LoaderConfig();
+                        File.WriteAllText(Path.Combine(loaderFilepath, configFilepath, loaderConfigFileFilepath), JsonConvert.SerializeObject(configRef, Formatting.Indented));
+                    }
+                    return;
+                }
+                catch
+                {
+                    Loader.Instance.logger.Log("Something went wrong when trying to parse the loader's config. Creating new file");
+                }
+            }
+            else
+            {
+                Loader.Instance.logger.Log("No config file found, creating file");
+            }
+
+            Directory.CreateDirectory(Path.Combine(loaderFilepath, configFilepath));
+            File.Create(Path.Combine(loaderFilepath, configFilepath, loaderConfigFileFilepath));
+            configRef = new LoaderConfig();
+            File.WriteAllText(Path.Combine(loaderFilepath, configFilepath, loaderConfigFileFilepath), JsonConvert.SerializeObject(configRef, Formatting.Indented));
+
+            Loader.Instance.logger.logDetails = configRef.logDetails;
+        }
+
+        public bool Check()
+        {
+            return true;
+        }
+    }
+}
