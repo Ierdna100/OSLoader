@@ -52,5 +52,5 @@ debug_address=127.0.0.1:10000
 
 ## References
 $^1$ This happens when any Windows library is present in a game's files. The custom library then gets loaded instead. In our case
-`winhttp.dll` launches `Doorstop.Entrypoint::Start()` (OSLoader).
+`winhttp.dll` launches `Doorstop.Entrypoint::Start()` (OSLoader).  
 $^2$ Obenseuer assemblies come stripped, we need clean ones
