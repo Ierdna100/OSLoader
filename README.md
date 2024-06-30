@@ -4,7 +4,7 @@ Mod loader for Obenseuer based on Unity Doorstop
 ## Projects present in the repository
 ### OSLoader
 Loads mods found in the `.../Obenseuer/OSLoader/mods/` folder in the game making use of Doorstop. 
-Doorstop initializes with a library called `winhttp.dll`, which is loaded instead of the one in your Windows installation$^1$.
+Doorstop initializes with a library called `winhttp.dll`, which is loaded instead of the one in your Windows installation $^1$.
 
 ### TestMod
 Testing if mods work. I don't know why you'd want to use this, but it's there. Currently, mods can not access
