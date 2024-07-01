@@ -8,26 +8,26 @@ using UnityEngine.SceneManagement;
 
 namespace OSLoader
 {
-    internal class Loader
+    public class Loader
     {
-        public static Loader Instance { get; private set; }
+        internal static Loader Instance { get; private set; }
 
-        public bool ModloaderInitialized { get; private set; } = false;
+        internal bool ModloaderInitialized { get; private set; } = false;
 
-        private const string loaderFilepath = @"./OSLoader";
-        private const string configFilepath = @"config";
-        private const string loaderConfigFileFilepath = @"loader_config.json";
-        private const string modsFilepath = @"mods";
+        public const string loaderFilepath = @"./OSLoader";
+        public const string configFilepath = @"config";
+        public const string loaderConfigFileFilepath = @"loader_config.json";
+        public const string modsFilepath = @"mods";
 
-        public List<ModReference> mods = new List<ModReference>();
+        internal List<ModReference> mods = new List<ModReference>();
 
-        public Logger logger = new Logger("OS Loader", true, true);
+        internal Logger logger = new Logger("OS Loader", true, true);
 
-        public LoaderConfig config;
+        internal LoaderConfig config;
 
-        public LoaderUI loaderUI;
+        internal LoaderUI loaderUI;
 
-        public Loader()
+        internal Loader()
         {
             Instance = this;
 
