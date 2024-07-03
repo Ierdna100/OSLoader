@@ -35,7 +35,7 @@ namespace OSLoader {
                 if (file.ToLower().Contains("doorstop_"))
                 {
                     Loader.Instance.logger.Log("Deleting doorstop log file with path " + file);
-                    try 
+                    try
                     {
                         File.Delete(file);
                     }
@@ -60,14 +60,30 @@ namespace OSLoader {
             {
                 File.AppendAllText(loaderFileFilepath, log + "\n");
             }
-            
+
             if (Loader.Instance.ModloaderInitialized)
             {
                 Debug.Log(log);
             }
         }
-        
+
         public void Detail(string message)
+        {
+            if (!logDetails) return;
+
+            string log = $"[{name}] {message}";
+            if (logToLoaderLog)
+            {
+                File.AppendAllText(loaderFileFilepath, log + "\n");
+            }
+
+            if (Loader.Instance.ModloaderInitialized)
+            {
+                Debug.Log(log);
+            }
+        }
+
+        public void Error(string message)
         {
             if (!logDetails) return;
 
@@ -84,4 +100,3 @@ namespace OSLoader {
         }
     }
 }
-
