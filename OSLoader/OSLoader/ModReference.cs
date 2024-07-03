@@ -14,7 +14,7 @@ namespace OSLoader
         public string assemblyFilepath;
         public bool valid = false;
 
-        public ModConfig config;
+        public ModInfo info;
         public bool loaded = false;
 
         public Mod actualMod;
@@ -30,61 +30,81 @@ namespace OSLoader
 
             assemblyFilepath = possibleAssembly[0];
 
-            var configFilepath = Path.Combine(filepath, "config.json");
-            if (!File.Exists(configFilepath)) {
-                Loader.Instance.logger.Log($"Unable to create mod reference at path {filepath}: No config file found!");
+            var infoFilepath = Path.Combine(filepath, Loader.modsInfoFilename);
+            if (!File.Exists(infoFilepath)) {
+                Loader.Instance.logger.Log($"Unable to create mod reference at path {filepath}: No info file found!");
                 return;
             }
 
-            string rawModConfig = File.ReadAllText(configFilepath);
-            config = JsonConvert.DeserializeObject<ModConfig>(rawModConfig);
-            if (!config.IsValid())
+            string rawModInfo = File.ReadAllText(infoFilepath);
+            info = JsonConvert.DeserializeObject<ModInfo>(rawModInfo);
+            info.infoFilepath = infoFilepath;
+            if (!info.IsValid())
             {
                 Loader.Instance.logger.Log($"Unable to create mod reference at path {filepath}: Config file check failed!");
                 return;
             }
 
+            info.settingsFilepath = Path.Combine(filepath, Loader.modsSettingsFilename);
             valid = true;
         }
 
-        public void Load()
+        public void Load(bool loadOnStart = false)
         {
             if (!valid)
             {
-                Loader.Instance.logger.Log($"Failed to load mod {config.name}: Valid flag is not set");
+                Loader.Instance.logger.Log($"Failed to load mod {info.name}: Valid flag is not set");
                 return;
             }
 
             if (loaded)
             {
-                Loader.Instance.logger.Log($"Not loading mod {config.name}: Mod is already loaded!");
+                Loader.Instance.logger.Log($"Not loading mod {info.name}: Mod is already loaded!");
                 return;
             }
 
-            Loader.Instance.logger.Log("Assembly filepath: ");
-            Loader.Instance.logger.Log(assemblyFilepath);
+            Loader.Instance.logger.Detail("Assembly filepath: ");
+            Loader.Instance.logger.Detail(assemblyFilepath);
+
             Assembly assembly = Assembly.LoadFrom(assemblyFilepath);
-            string types = $"Types in assembly for mod {config.name}";
-            foreach (Type type in assembly.GetTypes()) types += "\t" + type + "\n";
-            Loader.Instance.logger.Detail(types);
             var entrypoint = from type in assembly.GetTypes()
                              where type.IsSubclassOf(typeof(Mod))
                              select type;
 
             if (entrypoint == null || entrypoint.Count() != 1)
             {
-                Loader.Instance.logger.Log($"Failed to load mod {config.name}: Mod structure is invalid");
+                Loader.Instance.logger.Log($"Failed to load mod {info.name}: Mod structure is invalid");
                 return;
             }
 
-            GameObject modGO = new GameObject(config.name, entrypoint.First());
+            GameObject modGO = new GameObject(info.name, entrypoint.First());
             GameObject.DontDestroyOnLoad(modGO);
             actualMod = modGO.GetComponent<Mod>();
-            actualMod.config = config;
+            actualMod.info = info;
             actualMod.OnModLoaded();
+            if (actualMod.settings?.settings != null)
+            {
+                if (!File.Exists(info.settingsFilepath))
+                {
+                    actualMod.SaveSettings();
+                }
+                else
+                {
+                    actualMod.settings = (ModSettings)JsonConvert.DeserializeObject(File.ReadAllText(info.settingsFilepath), actualMod.settings.GetType());
+                }
+                
+            }
 
             loaded = true;
-            Loader.Instance.logger.Log($"Loaded mod {config.name} ({Loader.Instance.mods.Where(e => e.loaded).Count()}/{Loader.Instance.mods.Count})");
+
+            if (loadOnStart)
+            {
+                int modsLoaded = Loader.Instance.mods.Where(e => e.loaded).Count();
+                int modsToLoad = Loader.Instance.mods.Where(e => e.info.loadOnStart).Count();
+                int percentage = (int)(100f * modsLoaded / modsToLoad);
+                Loader.Instance.logger.Log($"Loaded mod {info.name} ({modsLoaded}/{modsToLoad}) ({percentage}%)");
+            }
+            
         }
     }
 }
