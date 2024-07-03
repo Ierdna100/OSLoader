@@ -8,7 +8,8 @@ namespace TestMod
         public override void OnModLoaded()
         {
             base.OnModLoaded();
-            logger.Log("This mod was loaded!");
+            settings = new CustomSettingsExample();
+            logger.Log("This mod was loaded! Version 2!");
         }
     }
 }
