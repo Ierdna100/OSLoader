@@ -13,4 +13,9 @@
     </Reference>
   </ItemGroup>
 
+  <!-- Uncomment this and change the paths to something that makes sense for you to auotmate moving the built file. -->
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;$(TargetPath)&quot; &quot;D:\steam library\steamapps\common\Obenseuer\OSLoader\mods\TestMod&quot;&#xD;&#xA;" />
+  </Target>
+
 </Project>
