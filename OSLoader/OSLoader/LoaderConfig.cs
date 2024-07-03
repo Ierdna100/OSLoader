@@ -39,7 +39,6 @@ namespace OSLoader {
             }
 
             Directory.CreateDirectory(Path.Combine(loaderFilepath, configFilepath));
-            File.Create(Path.Combine(loaderFilepath, configFilepath, loaderConfigFileFilepath));
             configRef = new LoaderConfig();
             File.WriteAllText(Path.Combine(loaderFilepath, configFilepath, loaderConfigFileFilepath), JsonConvert.SerializeObject(configRef, Formatting.Indented));
 
