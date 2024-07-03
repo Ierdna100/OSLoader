@@ -8,26 +8,28 @@ using UnityEngine.SceneManagement;
 
 namespace OSLoader
 {
-    public class Loader
+    internal class Loader
     {
-        internal static Loader Instance { get; private set; }
+        public static Loader Instance { get; private set; }
 
-        internal bool ModloaderInitialized { get; private set; } = false;
+        public bool ModloaderInitialized { get; private set; } = false;
 
         public const string loaderFilepath = @"./OSLoader";
         public const string configFilepath = @"config";
         public const string loaderConfigFileFilepath = @"loader_config.json";
         public const string modsFilepath = @"mods";
+        public const string modsSettingsFilename = @"settings.json";
+        public const string modsInfoFilename = @"info.json";
 
-        internal List<ModReference> mods = new List<ModReference>();
+        public List<ModReference> mods = new List<ModReference>();
 
-        internal Logger logger = new Logger("OS Loader", true, true);
+        public Logger logger = new Logger("OS Loader", true, true);
 
-        internal LoaderConfig config;
+        public LoaderConfig config;
 
-        internal LoaderUI loaderUI;
+        public LoaderUI loaderUI;
 
-        internal Loader()
+        public Loader()
         {
             Instance = this;
 
@@ -57,7 +59,7 @@ namespace OSLoader
                 foreach (string modFilepath in modsFilepaths)
                 {
                     var mod = new ModReference(modFilepath);
-                    mods.Add(mod);
+                    if (mod.valid) mods.Add(mod);
                 }
             }
             else
@@ -75,7 +77,7 @@ namespace OSLoader
             logger.Log("Loading mods...");
             foreach (ModReference mod in mods)
             {
-                if (mod.config.loadOnStart) mod.Load();
+                if (mod.info.loadOnStart) mod.Load(true);
             }
             logger.Log("Finished loading mods!");
 
