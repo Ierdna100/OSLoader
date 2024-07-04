@@ -23,6 +23,7 @@ namespace OSLoader
                     if (attribute is SettingTitleAttribute title)
                     {
                         settingTitle = title.name;
+                        continue;
                     }
 
                     if (!(attribute is ModSettingAttribute modSetting))
