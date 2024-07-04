@@ -13,6 +13,8 @@ namespace OSLoader
         {
             this.name = name;
         }
+
+        internal abstract bool IsOfValidType(Type type);
     }
 
     [AttributeUsage(AttributeTargets.Field)]
@@ -56,6 +58,11 @@ namespace OSLoader
             this.constraints = constraints;
             this.maxLength = maxLength;
         }
+
+        internal override bool IsOfValidType(Type type)
+        {
+            return type == typeof(string);
+        }
     }
 
     [AttributeUsage(AttributeTargets.Field)]
@@ -72,6 +79,11 @@ namespace OSLoader
             this.minValue = minValue;
             this.maxValue = maxValue;
             this.step = step;
+        }
+
+        internal override bool IsOfValidType(Type type)
+        {
+            return type == typeof(int);
         }
     }
 
@@ -90,6 +102,11 @@ namespace OSLoader
             this.maxValue = maxValue;
             this.step = step;
         }
+
+        internal override bool IsOfValidType(Type type)
+        {
+            return type == typeof(float);
+        }
     }
 
     [AttributeUsage(AttributeTargets.Field)]
@@ -100,6 +117,11 @@ namespace OSLoader
         public BoolSettingAttribute(string name, bool defaultValue) : base(name)
         {
             this.defaultValue = defaultValue;
+        }
+
+        internal override bool IsOfValidType(Type type)
+        {
+            return type == typeof(bool);
         }
     }
 }

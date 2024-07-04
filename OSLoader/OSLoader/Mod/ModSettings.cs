@@ -16,46 +16,54 @@ namespace OSLoader
         {
             foreach (FieldInfo fieldInfo in GetType().GetFields())
             {
-                ModSettingAttribute attribute = fieldInfo.GetCustomAttribute<ModSettingAttribute>();
-                if (attribute == null)
+                FieldInfo settingField = null;
+                string settingTitle = null;
+                foreach (Attribute attribute in fieldInfo.GetCustomAttributes())
                 {
-                    Loader.Instance.logger.Error("A setting in the mod settings lacks an attribute! Cannot generate settings.");
+                    if (attribute is SettingTitleAttribute title)
+                    {
+                        settingTitle = title.name;
+                    }
+
+                    if (!(attribute is ModSettingAttribute modSetting))
+                    {
+                        Loader.Instance.logger.Error($"Invalid attribute on mod settings at field '{fieldInfo.Name}'! Cannot generate settings.");
+                        settings = null;
+                        return;
+                    }
+
+                    if (fieldInfo != null)
+                    {
+                        Loader.Instance.logger.Error($"Too many attributes on mod settings at field '{fieldInfo.Name}'! Cannot generate settings.");
+                        settings = null;
+                        return;
+                    }
+
+                    if (!modSetting.IsOfValidType(fieldInfo.GetType()))
+                    {
+                        Loader.Instance.logger.Error($"Type mismatch in settings attributes at field '{fieldInfo.Name}'! Cannot generate settings.");
+                        settings = null;
+                        return;
+                    }
+
+                    if (fieldInfo.GetValue(this) == null)
+                    {
+                        Loader.Instance.logger.Error($"Default value in settings at field '{fieldInfo.Name}' is null! Cannot generate settings.");
+                        settings = null;
+                        return;
+                    }
+
+                    settingField = fieldInfo;
+                }
+
+                if (settingField == null)
+                {
+                    Loader.Instance.logger.Error($"No setting attribute found at field '{fieldInfo.Name}'! Cannot generate settings.");
                     settings = null;
                     return;
                 }
 
-                if (attribute is StringSettingAttribute && fieldInfo.FieldType != typeof(string)
-                    || attribute is BoolSettingAttribute && fieldInfo.FieldType != typeof(bool)
-                    || attribute is FloatSettingAttribute && fieldInfo.FieldType != typeof(float)
-                    || attribute is IntegerSettingAttribute && fieldInfo.FieldType != typeof(int))
-                {
-                    Loader.Instance.logger.Error("Type mismatch in settings attributes! Cannot generate settings menu.");
-                    settings = null;
-                    return;
-                }
-
-                SettingTitleAttribute title = fieldInfo.GetCustomAttribute<SettingTitleAttribute>();
-                settings.Add(new Tuple<FieldInfo, string>(fieldInfo, title?.name));
-            }
-
-            GenerateDefaultSettings();
-        }
-
-        private void GenerateDefaultSettings()
-        {
-            if (settings == null) return;
-
-            foreach (Tuple<FieldInfo, string> tuple in settings)
-            {
-                ModSettingAttribute attribute = tuple.Item1.GetCustomAttribute<ModSettingAttribute>();
-                if (attribute is StringSettingAttribute stringAttribute)
-                    tuple.Item1.SetValue(this, stringAttribute.defaultValue);
-                if (attribute is BoolSettingAttribute boolAttribute)
-                    tuple.Item1.SetValue(this, boolAttribute.defaultValue);
-                if (attribute is IntegerSettingAttribute intAttribute)
-                    tuple.Item1.SetValue(this, intAttribute.defaultValue);
-                if (attribute is FloatSettingAttribute floatAttribute)
-                    tuple.Item1.SetValue(this, floatAttribute.defaultValue);
+                settings.Add(new Tuple<FieldInfo, string>(settingField, settingTitle));
             }
         }
     }

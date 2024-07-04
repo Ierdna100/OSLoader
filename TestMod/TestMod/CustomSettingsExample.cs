@@ -14,8 +14,7 @@ namespace TestMod
         [FloatSetting("A float setting", 0f, -1f, 1f, 0.1f)]
         public float myFloatVariable;
 
-        // Forgot to have a constructor without a max length, oops
-        [StringSetting("A string setting", "", 200)]
+        [StringSetting("A string setting", "")]
         public string myStringVariable;
 
         [BoolSetting("A bool setting", false)]
