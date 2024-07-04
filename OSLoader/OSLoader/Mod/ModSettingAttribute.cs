@@ -31,30 +31,23 @@ namespace OSLoader
     [AttributeUsage(AttributeTargets.Field)]
     public sealed class StringSettingAttribute : ModSettingAttribute
     {
-        internal string defaultValue;
         internal uint maxLength = uint.MaxValue;
         internal StringConstraints constraints;
 
-        public StringSettingAttribute(string name, string defaultValue) : base(name)
-        {
-            this.defaultValue = defaultValue;
-        }
+        public StringSettingAttribute(string name) : base(name) { }
 
-        public StringSettingAttribute(string name, string defaultValue, StringConstraints constraints) : base(name)
+        public StringSettingAttribute(string name, StringConstraints constraints) : base(name)
         {
-            this.defaultValue = defaultValue;
             this.constraints = constraints;
         }
 
-        public StringSettingAttribute(string name, string defaultValue, uint maxLength) : base(name)
+        public StringSettingAttribute(string name, uint maxLength) : base(name)
         {
-            this.defaultValue = defaultValue;
             this.maxLength = maxLength;
         }
 
-        public StringSettingAttribute(string name, string defaultValue, StringConstraints constraints, uint maxLength) : base(name)
+        public StringSettingAttribute(string name, StringConstraints constraints, uint maxLength) : base(name)
         {
-            this.defaultValue = defaultValue;
             this.constraints = constraints;
             this.maxLength = maxLength;
         }
@@ -68,17 +61,29 @@ namespace OSLoader
     [AttributeUsage(AttributeTargets.Field)]
     public sealed class IntegerSettingAttribute : ModSettingAttribute
     {
-        internal int defaultValue;
         internal int maxValue;
         internal int minValue;
         internal int step;
+        internal bool isSliderType;
 
-        public IntegerSettingAttribute(string name, int defaultValue, int minValue, int maxValue, int step) : base(name)
+        public IntegerSettingAttribute(string name, int minValue, int maxValue, int step = 1) : base(name)
         {
-            this.defaultValue = defaultValue;
             this.minValue = minValue;
             this.maxValue = maxValue;
             this.step = step;
+            isSliderType = true;
+        }
+
+        public IntegerSettingAttribute(string name, int minValue, int maxValue, bool slider = true) : base(name)
+        {
+            this.minValue = minValue;
+            this.maxValue = maxValue;
+            isSliderType = slider;
+        }
+
+        public IntegerSettingAttribute(string name) : base(name)
+        {
+            isSliderType = false;
         }
 
         internal override bool IsOfValidType(Type type)
@@ -90,17 +95,30 @@ namespace OSLoader
     [AttributeUsage(AttributeTargets.Field)]
     public sealed class FloatSettingAttribute : ModSettingAttribute
     {
-        internal float defaultValue;
         internal float maxValue;
         internal float minValue;
+        internal string customFormatter;
         internal float step;
+        internal bool isSliderType;
 
-        public FloatSettingAttribute(string name, float defaultValue, float minValue, float maxValue, float step) : base(name)
+        public FloatSettingAttribute(string name, float minValue, float maxValue, float step = 1f) : base(name)
         {
-            this.defaultValue = defaultValue;
             this.minValue = minValue;
             this.maxValue = maxValue;
             this.step = step;
+            isSliderType = true;
+        }
+
+        public FloatSettingAttribute(string name, float minValue, float maxValue, bool slider = true) : base(name)
+        {
+            this.minValue = minValue;
+            this.maxValue = maxValue;
+            isSliderType = slider;
+        }
+
+        public FloatSettingAttribute(string name) : base(name)
+        {
+            isSliderType = false;
         }
 
         internal override bool IsOfValidType(Type type)
@@ -112,12 +130,7 @@ namespace OSLoader
     [AttributeUsage(AttributeTargets.Field)]
     public sealed class BoolSettingAttribute : ModSettingAttribute
     {
-        internal bool defaultValue;
-
-        public BoolSettingAttribute(string name, bool defaultValue) : base(name)
-        {
-            this.defaultValue = defaultValue;
-        }
+        public BoolSettingAttribute(string name) : base(name) { }
 
         internal override bool IsOfValidType(Type type)
         {
