@@ -14,7 +14,7 @@ namespace OSLoader
             this.name = name;
         }
 
-        internal abstract bool IsOfValidType(Type type);
+        internal abstract Type GetExpectedType();
     }
 
     [AttributeUsage(AttributeTargets.Field)]
@@ -52,9 +52,9 @@ namespace OSLoader
             this.maxLength = maxLength;
         }
 
-        internal override bool IsOfValidType(Type type)
+        internal override Type GetExpectedType()
         {
-            return type == typeof(string);
+            return typeof(string);
         }
     }
 
@@ -86,9 +86,9 @@ namespace OSLoader
             isSliderType = false;
         }
 
-        internal override bool IsOfValidType(Type type)
+        internal override Type GetExpectedType()
         {
-            return type == typeof(int);
+            return typeof(int);
         }
     }
 
@@ -121,9 +121,9 @@ namespace OSLoader
             isSliderType = false;
         }
 
-        internal override bool IsOfValidType(Type type)
+        internal override Type GetExpectedType()
         {
-            return type == typeof(float);
+            return typeof(float);
         }
     }
 
@@ -132,9 +132,9 @@ namespace OSLoader
     {
         public BoolSettingAttribute(string name) : base(name) { }
 
-        internal override bool IsOfValidType(Type type)
+        internal override Type GetExpectedType()
         {
-            return type == typeof(bool);
+            return typeof(bool);
         }
     }
 }
