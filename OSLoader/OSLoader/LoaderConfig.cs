@@ -7,7 +7,17 @@ using Newtonsoft.Json;
 namespace OSLoader {
     internal class LoaderConfig
     {
-        public bool logDetails = false;
+        public bool logDetails;
+        public bool enabled;
+
+        private string version;
+
+        [JsonIgnore]
+        public Version Version
+        {
+            get { return new Version(version); }
+            set { version = value.ToString(); }
+        }
 
         public static void Load(string loaderFilepath, string configFilepath, string loaderConfigFileFilepath, out LoaderConfig configRef)
         {

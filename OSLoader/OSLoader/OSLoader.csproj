@@ -13,6 +13,9 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\TestMod\Dependencies\Assembly-CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>..\..\TestMod\Dependencies\UnityEngine.AssetBundleModule.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\dependencies\UnityEngine.CoreModule.dll</HintPath>
     </Reference>

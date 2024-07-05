@@ -21,7 +21,7 @@ namespace OSLoader
 
         public ModReference(string filepath)
         {
-            var possibleAssembly = Directory.GetFiles(filepath, "*.dll");
+            string[] possibleAssembly = Directory.GetFiles(filepath, "*.dll");
             if (possibleAssembly.Length != 1)
             {
                 Loader.Instance.logger.Log($"Unable to create mod reference at path {filepath}: No .dll found!");
@@ -30,18 +30,20 @@ namespace OSLoader
 
             assemblyFilepath = possibleAssembly[0];
 
-            var infoFilepath = Path.Combine(filepath, Loader.modsInfoFilename);
+            string infoFilepath = Path.Combine(filepath, Loader.modsInfoFilename);
             if (!File.Exists(infoFilepath)) {
                 Loader.Instance.logger.Log($"Unable to create mod reference at path {filepath}: No info file found!");
                 return;
             }
 
             string rawModInfo = File.ReadAllText(infoFilepath);
+            Loader.Instance.logger.Detail($"rawModInfo for file {infoFilepath}:");
+            Loader.Instance.logger.Detail(rawModInfo);
             info = JsonConvert.DeserializeObject<ModInfo>(rawModInfo);
             info.infoFilepath = infoFilepath;
             if (!info.IsValid())
             {
-                Loader.Instance.logger.Log($"Unable to create mod reference at path {filepath}: Config file check failed!");
+                Loader.Instance.logger.Log($"Unable to create mod reference at path {filepath}: Info file check failed!");
                 return;
             }
 
