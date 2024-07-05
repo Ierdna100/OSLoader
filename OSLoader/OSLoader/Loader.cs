@@ -20,15 +20,19 @@ namespace OSLoader
         public const string modsFilepath = @"mods";
         public const string modsSettingsFilename = @"settings.json";
         public const string modsInfoFilename = @"info.json";
+        public const string assetBundleFilepath = @"loader";
 
         public List<ModReference> mods = new List<ModReference>();
 
         public Logger logger = new Logger("OS Loader", true, true);
 
+        public AssetBundle assetBundle;
         public LoaderConfig config;
 
         public LoaderUI loaderUI;
 
+        public OSScene currentScene;
+        
         public Loader()
         {
             Instance = this;
@@ -50,6 +54,18 @@ namespace OSLoader
         {
             ModloaderInitialized = true;
             LoaderConfig.Load(loaderFilepath, configFilepath, loaderConfigFileFilepath, out config);
+
+            // Asset Bundle
+            assetBundle = AssetBundle.LoadFromFile(Path.Combine(loaderFilepath, assetBundleFilepath));
+            logger.Log("Asset bundle loaded!");
+            if (logger.logDetails)
+            {
+                logger.Detail("Contents of asset bundle:");
+                foreach (string assetName in assetBundle.GetAllAssetNames())
+                {
+                    logger.Detail("- " + assetName);
+                }
+            }
 
             // Figure out what mods exist
             string modsDir = Path.Combine(loaderFilepath, modsFilepath);
