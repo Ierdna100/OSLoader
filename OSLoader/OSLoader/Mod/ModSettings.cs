@@ -11,6 +11,7 @@ namespace OSLoader
     {
         // String indicates a title that should go above it
         internal List<Tuple<FieldInfo, string>> settings = new List<Tuple<FieldInfo, string>>();
+        internal int totalEntriesCount = 0;
 
         public ModSettings()
         {
@@ -33,16 +34,16 @@ namespace OSLoader
                         return;
                     }
 
-                    if (fieldInfo != null)
+                    if (settingField != null)
                     {
                         Loader.Instance.logger.Error($"Too many attributes on mod settings at field '{fieldInfo.Name}'! Cannot generate settings.");
                         settings = null;
                         return;
                     }
 
-                    if (!modSetting.IsOfValidType(fieldInfo.GetType()))
+                    if (modSetting.GetExpectedType() != fieldInfo.FieldType)
                     {
-                        Loader.Instance.logger.Error($"Type mismatch in settings attributes at field '{fieldInfo.Name}'! Cannot generate settings.");
+                        Loader.Instance.logger.Error($"Type mismatch in settings attributes at field '{fieldInfo.Name}' ! (type {modSetting.GetExpectedType()} does not match expected type {fieldInfo.FieldType}) Cannot generate settings.");
                         settings = null;
                         return;
                     }
@@ -64,6 +65,8 @@ namespace OSLoader
                     return;
                 }
 
+                if (settingTitle != null) totalEntriesCount++;
+                totalEntriesCount++;
                 settings.Add(new Tuple<FieldInfo, string>(settingField, settingTitle));
             }
         }
