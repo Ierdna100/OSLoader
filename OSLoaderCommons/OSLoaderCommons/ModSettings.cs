@@ -10,8 +10,7 @@ namespace OSLoader
     public abstract class ModSettings
     {
         // String indicates a title that should go above it
-        internal List<Tuple<FieldInfo, string>> settings = new List<Tuple<FieldInfo, string>>();
-        internal int totalEntriesCount = 0;
+        public List<Tuple<FieldInfo, string>> Settings { get; internal set; } = new List<Tuple<FieldInfo, string>>();
 
         public ModSettings()
         {
@@ -30,28 +29,28 @@ namespace OSLoader
                     if (!(attribute is ModSettingAttribute modSetting))
                     {
                         Loader.Instance.logger.Error($"Invalid attribute on mod settings at field '{fieldInfo.Name}'! Cannot generate settings.");
-                        settings = null;
+                        Settings = null;
                         return;
                     }
 
                     if (settingField != null)
                     {
                         Loader.Instance.logger.Error($"Too many attributes on mod settings at field '{fieldInfo.Name}'! Cannot generate settings.");
-                        settings = null;
+                        Settings = null;
                         return;
                     }
 
                     if (modSetting.GetExpectedType() != fieldInfo.FieldType)
                     {
                         Loader.Instance.logger.Error($"Type mismatch in settings attributes at field '{fieldInfo.Name}' ! (type {modSetting.GetExpectedType()} does not match expected type {fieldInfo.FieldType}) Cannot generate settings.");
-                        settings = null;
+                        Settings = null;
                         return;
                     }
 
                     if (fieldInfo.GetValue(this) == null)
                     {
                         Loader.Instance.logger.Error($"Default value in settings at field '{fieldInfo.Name}' is null! Cannot generate settings.");
-                        settings = null;
+                        Settings = null;
                         return;
                     }
 
@@ -61,13 +60,11 @@ namespace OSLoader
                 if (settingField == null)
                 {
                     Loader.Instance.logger.Error($"No setting attribute found at field '{fieldInfo.Name}'! Cannot generate settings.");
-                    settings = null;
+                    Settings = null;
                     return;
                 }
 
-                if (settingTitle != null) totalEntriesCount++;
-                totalEntriesCount++;
-                settings.Add(new Tuple<FieldInfo, string>(settingField, settingTitle));
+                Settings.Add(new Tuple<FieldInfo, string>(settingField, settingTitle));
             }
         }
     }

@@ -31,7 +31,8 @@ namespace OSLoader
             assemblyFilepath = possibleAssembly[0];
 
             string infoFilepath = Path.Combine(filepath, Loader.modsInfoFilename);
-            if (!File.Exists(infoFilepath)) {
+            if (!File.Exists(infoFilepath))
+            {
                 Loader.Instance.logger.Log($"Unable to create mod reference at path {filepath}: No info file found!");
                 return;
             }
@@ -84,7 +85,7 @@ namespace OSLoader
             actualMod = modGO.GetComponent<Mod>();
             actualMod.info = info;
             actualMod.OnModLoaded();
-            if (actualMod.settings?.settings != null)
+            if (actualMod.HasValidSettings())
             {
                 if (!File.Exists(info.settingsFilepath))
                 {
@@ -92,9 +93,8 @@ namespace OSLoader
                 }
                 else
                 {
-                    actualMod.settings = (ModSettings)JsonConvert.DeserializeObject(File.ReadAllText(info.settingsFilepath), actualMod.settings.GetType());
+                    actualMod.settings = JsonConvert.DeserializeObject<ModSettings>(File.ReadAllText(info.settingsFilepath));
                 }
-                
             }
 
             loaded = true;
@@ -106,7 +106,7 @@ namespace OSLoader
                 int percentage = (int)(100f * modsLoaded / modsToLoad);
                 Loader.Instance.logger.Log($"Loaded mod {info.name} ({modsLoaded}/{modsToLoad}) ({percentage}%)");
             }
-            
+
         }
     }
 }

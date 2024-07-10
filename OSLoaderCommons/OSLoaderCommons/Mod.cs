@@ -22,9 +22,19 @@ namespace OSLoader
 
         public void SaveSettings()
         {
-            if (settings?.settings == null) return;
+            if (!HasValidSettings()) return;
             File.WriteAllText(info.settingsFilepath, JsonConvert.SerializeObject(settings, Formatting.Indented));
             OnSettingsChanged();
+        }
+
+        public bool HasSettings()
+        {
+            return settings != null;
+        }
+
+        public bool HasValidSettings()
+        {
+            return settings?.Settings != null;
         }
     }
 }

@@ -29,9 +29,9 @@ namespace OSLoader
         public AssetBundle assetBundle;
         public LoaderConfig config;
 
-        public LoaderUI loaderUI;
+        //public LoaderUI loaderUI;
 
-        public OSScene currentScene;
+        //public OSScene currentScene;
         
         public Loader()
         {
@@ -85,9 +85,9 @@ namespace OSLoader
             }
 
             // Create mod UI
-            GameObject loaderUIGO = new GameObject("Loader UI", typeof(LoaderUI));
-            GameObject.DontDestroyOnLoad(loaderUIGO);
-            loaderUI = loaderUIGO.GetComponent<LoaderUI>();
+            //GameObject loaderUIGO = new GameObject("Loader UI", typeof(LoaderUI));
+            //GameObject.DontDestroyOnLoad(loaderUIGO);
+            // loaderUI = loaderUIGO.GetComponent<LoaderUI>();
 
             // Mod loading
             logger.Log("Loading mods...");
