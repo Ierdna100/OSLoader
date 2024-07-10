@@ -3,9 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSLoader", "OSLoader\OSLoader.csproj", "{B8B596F6-B94A-44E7-BEB7-BCAD51D2DC39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OSLoader", "OSLoader\OSLoader.csproj", "{B8B596F6-B94A-44E7-BEB7-BCAD51D2DC39}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "OSLoaderCommons", "..\OSLoaderCommons\OSLoaderCommons\OSLoaderCommons.shproj", "{6814FB67-87AE-4CE3-85E8-372434F1B060}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OSLoaderAssetBundle", "..\OSLoaderAssetBundle\OSLoaderAssetBundle\OSLoaderAssetBundle.csproj", "{B50FB18C-C2AA-471F-A5E7-AA7617339E3A}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\OSLoaderCommons\OSLoaderCommons\OSLoaderCommons.projitems*{6814fb67-87ae-4ce3-85e8-372434f1b060}*SharedItemsImports = 13
+		..\OSLoaderCommons\OSLoaderCommons\OSLoaderCommons.projitems*{b50fb18c-c2aa-471f-a5e7-aa7617339e3a}*SharedItemsImports = 5
+		..\OSLoaderCommons\OSLoaderCommons\OSLoaderCommons.projitems*{b8b596f6-b94a-44e7-beb7-bcad51d2dc39}*SharedItemsImports = 5
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -15,6 +24,10 @@ Global
 		{B8B596F6-B94A-44E7-BEB7-BCAD51D2DC39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8B596F6-B94A-44E7-BEB7-BCAD51D2DC39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8B596F6-B94A-44E7-BEB7-BCAD51D2DC39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B50FB18C-C2AA-471F-A5E7-AA7617339E3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B50FB18C-C2AA-471F-A5E7-AA7617339E3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B50FB18C-C2AA-471F-A5E7-AA7617339E3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B50FB18C-C2AA-471F-A5E7-AA7617339E3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
