@@ -1,0 +1,18 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "OSLoaderCommons", "OSLoaderCommons\OSLoaderCommons.shproj", "{6814FB67-87AE-4CE3-85E8-372434F1B060}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		OSLoaderCommons\OSLoaderCommons.projitems*{6814fb67-87ae-4ce3-85e8-372434f1b060}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1FD6F30D-7F8D-4492-883B-B097173EB5FD}
+	EndGlobalSection
+EndGlobal

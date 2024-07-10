@@ -1,17 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
+  <Import Project="..\..\OSLoaderCommons\OSLoaderCommons\OSLoaderCommons.projitems" Label="Shared" />
+
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\TestMod\Dependencies\Assembly-CSharp.dll</HintPath>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>..\dependencies\Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
       <HintPath>..\..\TestMod\Dependencies\UnityEngine.AssetBundleModule.dll</HintPath>
@@ -27,6 +29,9 @@
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>..\dependencies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsModule">
+      <HintPath>..\dependencies\UnityEngine.UIElementsModule.dll</HintPath>
     </Reference>
   </ItemGroup>
 

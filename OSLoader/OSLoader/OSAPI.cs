@@ -16,11 +16,11 @@ namespace OSLoader
             private set { }
         }
 
-        public static OSScene CurrentScene
+        /*public static OSScene CurrentScene
         {
             get { return Loader.Instance.currentScene; }
             private set { }
-        }
+        }*/
     }
 }
 

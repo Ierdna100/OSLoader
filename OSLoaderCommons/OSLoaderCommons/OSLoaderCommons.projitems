@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>6814fb67-87ae-4ce3-85e8-372434f1b060</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>OSLoaderCommons</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Loader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LoaderConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Logger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Mod.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModReference.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModSettingAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StringConstraints.cs" />
+  </ItemGroup>
+</Project>

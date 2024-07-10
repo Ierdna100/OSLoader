@@ -61,7 +61,7 @@ namespace OSLoader
         {
             if (Input.GetKeyDown(KeyCode.F10))
             {
-                if (mainMenu == null) mainMenu = FindObjectOfType<MainMenu>()?.gameObject;
+                //if (mainMenu == null) mainMenu = FindObjectOfType<MainMenu>()?.gameObject;
                 UIEnabled = !UIEnabled;
                 if (mainMenu != null) mainMenu.SetActive(!UIEnabled);
 
@@ -85,10 +85,10 @@ namespace OSLoader
                 modUIs = new ModUI[Loader.Instance.mods.Count];
                 for (int i = 0; i < Loader.Instance.mods.Count; i++) modUIs[i] = new ModUI(Loader.Instance.mods[i]);
             }
-            mainMenuRect = GUI.Window(0, mainMenuRect, MainMenuWindowCallback, "OS Loader Menu (F10 to toggle)");
+            //mainMenuRect = GUI.Window(0, mainMenuRect, MainMenuWindowCallback, "OS Loader Menu (F10 to toggle)");
         }
 
-        private void MainMenuWindowCallback(int id)
+        /*private void MainMenuWindowCallback(int id)
         {
             int height = (int)mainMenuRect.height;
             int width = (int)mainMenuRect.width;
@@ -120,7 +120,7 @@ namespace OSLoader
                 int modHeight = modEntryHeight;
                 if (modRef.showSettings)
                 {
-                    modHeight += modRef.mod.actualMod?.settings?.settings == null ? 0 : modRef.mod.actualMod.settings.totalEntriesCount * settingEntryHeight + 45;
+                    modHeight += modRef.mod.actualMod?.HasValidSettings() ? 0 : modRef.mod.actualMod.settings.totalEntriesCount * settingEntryHeight + 45;
                 }
 
                 GUI.Box(new Rect(10, y, width - 50, modHeight), "");
@@ -308,6 +308,6 @@ namespace OSLoader
         private int WidthOf(string str)
         {
             return (int)GUI.skin.label.CalcSize(new GUIContent(str)).x;
-        }
+        }*/
     }
 }
