@@ -1,0 +1,23 @@
+ManifestFileVersion: 0
+CRC: 3777648056
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0f2659f2ff6e0f721810a00d8f091e6e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7859cd501ea75098bcf7e53f1b477c26
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Loader UI/Green Circle.png
+- Assets/Loader UI/Cog.png
+- Assets/Loader UI/Github.png
+- Assets/Loader UI/Yellow Circle.png
+- Assets/Loader UI/Link.png
+- Assets/Loader UI/Gray Circle.png
+- Assets/Loader UI/Red Circle.png
+Dependencies: []
