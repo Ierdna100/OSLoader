@@ -6,7 +6,7 @@ using UnityEngine;
 namespace OSLoader
 {
     [CreateAssetMenu(fileName = "Prefabs")]
-    internal class Prefabs
+    internal class Prefabs : ScriptableObject
     {
         public GameObject loaderMenu;
         public GameObject modEntry;
