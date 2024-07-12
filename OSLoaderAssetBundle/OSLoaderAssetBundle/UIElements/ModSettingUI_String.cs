@@ -16,6 +16,11 @@ namespace OSLoader
             input.onEndEdit.AddListener(OnEditEnd);
             input.onDeselect.AddListener(OnEditEnd);
             input.onValueChanged.AddListener(OnValueChanged);
+
+            StringSettingAttribute _attribute = (StringSettingAttribute)attribute;
+
+            input.characterLimit = _attribute.maxLength == uint.MaxValue ? 0 : (int)_attribute.maxLength;
+            input.characterValidation = TMP_InputField.CharacterValidation.Regex;
         }
 
         private void OnEditEnd(string newValue)
@@ -37,6 +42,7 @@ namespace OSLoader
             {
                 localValue = newValue;
             }
+            OnSettingChanged();
         }
 
         private void OnValueChanged(string newValue)
@@ -45,7 +51,8 @@ namespace OSLoader
             StringSettingAttribute _attribute = (StringSettingAttribute)attribute;
 
             // NOTE: TMP_INPUT FIELD ALREADY MAY SUPPORT THIS, CHECK
-            if (_attribute.constraints & StringConstraints) 
+            if (_attribute.constraints & StringConstraints)
+                OnSettingChanged();
         }
 
         private void OnEnable()
@@ -53,7 +60,7 @@ namespace OSLoader
 
         }
 
-        public override void OnSave()
+        protected override void OnSave()
         {
             linkedField.SetValue(modEntryUI.mod.actualMod.settings, localValue);
         }

@@ -47,6 +47,7 @@ namespace OSLoader
         {
             float step = ((FloatSettingAttribute)attribute).step;
             localValue = Mathf.Floor(newValue / step * step);
+            OnSettingChanged();
         }
 
         private void UpdateText()
@@ -76,7 +77,7 @@ namespace OSLoader
             else UpdateText();
         }
 
-        public override void OnSave()
+        protected override void OnSave()
         {
             linkedField.SetValue(modEntryUI.mod.actualMod.settings, localValue);
         }

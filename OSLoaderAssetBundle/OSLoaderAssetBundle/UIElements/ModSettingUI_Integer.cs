@@ -47,6 +47,7 @@ namespace OSLoader
         {
             int step = ((IntegerSettingAttribute)attribute).step;
             localValue = newValue / step * step;
+            OnSettingChanged();
         }
 
         private void OnEnable()
@@ -56,7 +57,7 @@ namespace OSLoader
             else valueDisplay.text = localValue.ToString();
         }
 
-        public override void OnSave()
+        protected override void OnSave()
         {
             linkedField.SetValue(modEntryUI.mod.actualMod.settings, localValue);
         }

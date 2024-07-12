@@ -11,17 +11,19 @@ namespace OSLoader
     {
         public FieldInfo linkedField;
         public ModSettingAttribute attribute;
+        public List<Action> onChangedCallbacks;
 
         public ModEntryUI modEntryUI;
 
         public TMP_Text title;
 
-        public void OnSettingChanged()
+        protected void OnSettingChanged()
         {
             modEntryUI.OnAnyValueChanged();
+            onChangedCallbacks.ForEach(callback => callback.Invoke());
         }
 
-        public abstract void OnSave();
+        protected abstract void OnSave();
 
         public virtual void OnInitialized()
         {

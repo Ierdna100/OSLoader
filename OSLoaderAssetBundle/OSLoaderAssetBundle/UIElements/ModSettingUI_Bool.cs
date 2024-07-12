@@ -19,7 +19,7 @@ namespace OSLoader
             OnSettingChanged();
         }
 
-        public override void OnSave()
+        protected override void OnSave()
         {
             linkedField.SetValue(modEntryUI.mod.actualMod.settings, localValue);
         }
