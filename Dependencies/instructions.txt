@@ -1,0 +1,7 @@
+Add dependencies:
+	- Unity.TextMeshPro.dll
+	- UnityEngine.AssetBundleModule.dll
+	- UnityEngine.CoreModule.dll
+	- UnityEngine.IMGUIModule.dll
+	- UnityEngine.InputLegacyModule.dll
+	- UnityEngine.UI.dll
