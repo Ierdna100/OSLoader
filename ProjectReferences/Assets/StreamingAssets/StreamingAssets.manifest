@@ -1,7 +1,7 @@
 ManifestFileVersion: 0
-CRC: 331074332
+CRC: 425380627
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: loader ui
+      Name: loader
       Dependencies: {}
