@@ -405,6 +405,7 @@ FodyWeavers.xsd
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
+/ProjectReferences/[Tt]ext[Mm]esh [Pp]ro/
 /ProjectReferences/[Ll]ibrary/
 /ProjectReferences/[Tt]emp/
 /ProjectReferences/[Oo]bj/
