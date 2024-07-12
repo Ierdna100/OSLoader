@@ -12,7 +12,10 @@ namespace OSLoader
         public GameObject loaderMenu;
         public GameObject noModsFoundText;
         public TMP_Text title;
+
         public TMP_Text confirmationText;
+        public int confirmationTextLifetime = (int)(5 / Time.fixedDeltaTime);
+        public int confirmationTextLife = 0;
 
         public Button closeButton;
         public Button saveButton;
@@ -26,10 +29,7 @@ namespace OSLoader
 
         private void Awake()
         {
-            // use in the future
-            // OSLoader.OSAPI.
-            string loaderVersion = "0.0.0";
-            title.text = $"OSLoader Menu (F10 to toggle) v{loaderVersion}";
+            title.text = $"OSLoader Menu (F10 to toggle) v{Loader.Instance.config.Version}";
             
             closeButton.onClick.AddListener(OnClose);
             saveButton.onClick.AddListener(OnSave);
@@ -54,11 +54,31 @@ namespace OSLoader
                 else
                     OnOpen();
             }
+
+            if (confirmationTextLife > 0)
+            {
+                confirmationTextLife--;
+                if (!confirmationText.gameObject.activeSelf)
+                {
+                    confirmationText.gameObject.SetActive(true);
+                }
+            }
+            else if (confirmationText.gameObject.activeSelf)
+            {
+                confirmationText.gameObject.SetActive(false);
+            }
         }
 
         public void OnSave()
         {
+            SetConfirmationText("Successfully saved settings!", Color.green);
+        }
 
+        public void SetConfirmationText(string text, Color color)
+        {
+            confirmationText.text = text;
+            confirmationText.color = color;
+            confirmationTextLife = confirmationTextLifetime;
         }
 
         public void OnClose()
@@ -69,7 +89,6 @@ namespace OSLoader
         public void OnOpen()
         {
             loaderMenu.SetActive(true);
-
         }
 
         public void UpdateModPositions()
