@@ -30,9 +30,10 @@
   </ItemGroup>
 
   <!-- Uncomment this and change the paths to something that makes sense for you to auotmate moving the built file. -->
+	<!--
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
 	  <Exec Command="copy &quot;$(TargetPath)&quot; &quot;D:\steam library\steamapps\common\Obenseuer\OSLoader&quot;&#xD;&#xA;" />
     <Exec Command="copy &quot;$(TargetPath)&quot; &quot;D:\code\csharp\OSLoader\TestMod\Dependencies&quot;&#xD;&#xA;" />
 	</Target> 
-
+-->
 </Project>

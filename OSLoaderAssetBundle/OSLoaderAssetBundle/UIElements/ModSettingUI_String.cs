@@ -51,8 +51,8 @@ namespace OSLoader
             StringSettingAttribute _attribute = (StringSettingAttribute)attribute;
 
             // NOTE: TMP_INPUT FIELD ALREADY MAY SUPPORT THIS, CHECK
-            if (_attribute.constraints & StringConstraints)
-                OnSettingChanged();
+            //if (_attribute.constraints & StringConstraints)
+            OnSettingChanged();
         }
 
         private void OnEnable()
@@ -60,7 +60,7 @@ namespace OSLoader
 
         }
 
-        protected override void OnSave()
+        public override void OnSave()
         {
             linkedField.SetValue(modEntryUI.mod.actualMod.settings, localValue);
         }

@@ -7,7 +7,7 @@ namespace OSLoader
 {
     internal class ModSettingUI_Header : ModSettingUI_Base
     {
-        protected override void OnSave()
+        public override void OnSave()
         {
         }
     }

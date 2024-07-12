@@ -260,6 +260,12 @@
  <Reference Include="unityplastic">
  <HintPath>D:/everything/kode/csharp/OSLoader/ProjectReferences/Library/PackageCache/com.unity.collab-proxy@1.14.18/Lib/Editor/PlasticSCM/unityplastic.dll</HintPath>
  </Reference>
+ <Reference Include="OSLoaderAssetBundle">
+ <HintPath>D:/everything/kode/csharp/OSLoader/ProjectReferences/Assets/Dependencies/OSLoaderAssetBundle.dll</HintPath>
+ </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>D:/everything/kode/csharp/OSLoader/ProjectReferences/Assets/Dependencies/Newtonsoft.Json.dll</HintPath>
+ </Reference>
  <Reference Include="nunit.framework">
  <HintPath>D:/everything/kode/csharp/OSLoader/ProjectReferences/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>

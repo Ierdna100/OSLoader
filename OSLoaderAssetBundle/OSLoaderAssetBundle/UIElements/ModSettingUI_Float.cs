@@ -77,7 +77,7 @@ namespace OSLoader
             else UpdateText();
         }
 
-        protected override void OnSave()
+        public override void OnSave()
         {
             linkedField.SetValue(modEntryUI.mod.actualMod.settings, localValue);
         }

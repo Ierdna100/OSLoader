@@ -14,7 +14,7 @@ namespace OSLoader
         public TMP_Text title;
 
         public TMP_Text confirmationText;
-        public int confirmationTextLifetime = (int)(5 / Time.fixedDeltaTime);
+        public int confirmationTextLifetime = 200;
         public int confirmationTextLife = 0;
 
         public Button closeButton;

@@ -1,18 +1,38 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30320.27
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "OSLoaderCommons", "OSLoaderCommons\OSLoaderCommons.shproj", "{6814FB67-87AE-4CE3-85E8-372434F1B060}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OSLoaderAssetBundle", "..\OSLoaderAssetBundle\OSLoaderAssetBundle\OSLoaderAssetBundle.csproj", "{DD5F7D27-EEC0-4152-9F65-DCF1171CE74D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OSLoader", "..\OSLoader\OSLoader\OSLoader.csproj", "{03B7C263-58D2-4ECC-B763-4C2E6A94F35D}"
+EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		OSLoaderCommons\OSLoaderCommons.projitems*{6814fb67-87ae-4ce3-85e8-372434f1b060}*SharedItemsImports = 13
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD5F7D27-EEC0-4152-9F65-DCF1171CE74D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD5F7D27-EEC0-4152-9F65-DCF1171CE74D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD5F7D27-EEC0-4152-9F65-DCF1171CE74D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD5F7D27-EEC0-4152-9F65-DCF1171CE74D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03B7C263-58D2-4ECC-B763-4C2E6A94F35D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03B7C263-58D2-4ECC-B763-4C2E6A94F35D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03B7C263-58D2-4ECC-B763-4C2E6A94F35D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03B7C263-58D2-4ECC-B763-4C2E6A94F35D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1FD6F30D-7F8D-4492-883B-B097173EB5FD}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		OSLoaderCommons\OSLoaderCommons.projitems*{03b7c263-58d2-4ecc-b763-4c2e6a94f35d}*SharedItemsImports = 5
+		OSLoaderCommons\OSLoaderCommons.projitems*{6814fb67-87ae-4ce3-85e8-372434f1b060}*SharedItemsImports = 13
+		OSLoaderCommons\OSLoaderCommons.projitems*{dd5f7d27-eec0-4152-9f65-dcf1171ce74d}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
