@@ -16,10 +16,10 @@ namespace OSLoader
         public TMP_Text valueDisplay;
         public Slider slider;
 
-        private void Awake()
+        public override void OnInitialized()
         {
+            base.OnInitialized();
             FloatSettingAttribute _attribute = (FloatSettingAttribute)attribute;
-            title.text = _attribute.name;
             isSliderType = _attribute.isSliderType;
             if (isSliderType)
             {

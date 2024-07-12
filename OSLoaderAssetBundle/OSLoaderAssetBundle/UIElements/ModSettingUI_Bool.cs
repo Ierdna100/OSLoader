@@ -8,11 +8,6 @@ namespace OSLoader
     {
         bool localValue;
 
-        private void Awake()
-        {
-            title.text = attribute.name;
-        }
-
         private void OnEnable()
         {
             localValue = (bool)linkedField.GetValue(modEntryUI.mod.actualMod.settings);
@@ -21,6 +16,7 @@ namespace OSLoader
         private void OnValueChanged(bool newValue)
         {
             localValue = newValue;
+            OnSettingChanged();
         }
 
         public override void OnSave()

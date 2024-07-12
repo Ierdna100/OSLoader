@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using OSLoader;
+using System;
+using System.Reflection;
 
 namespace OSLoader
 {
@@ -21,7 +23,10 @@ namespace OSLoader
 
         public List<ModSettingUI_Base> UISettings;
 
-        private void Start()
+        public const int initialSpacingAtFirstSetting = 5;
+        public const int spacingBetweenSettings = 2;
+
+        public void OnInitialized()
         {
             if (mod == null)
             {
@@ -41,13 +46,14 @@ namespace OSLoader
                 externalLink.onClick.AddListener(OnExternalLinkPress);
             }
 
-            if (mod.actualMod != null && mod.actualMod.HasValidSettings())
+            if (mod.loaded)
             {
-                settingsButton.gameObject.SetActive(true);
-                settingsButton.onClick.AddListener(OnSettingsToggle);
+                GenerateSettings();
             }
-
-            
+            else
+            {
+                mod.generateUISettings = GenerateSettings;
+            }
 
             modName.text = mod.actualMod.info.name;
             version.text = mod.actualMod.info.Version.ToString();
@@ -58,12 +64,79 @@ namespace OSLoader
 
         }
 
-        private void Update()
+        private void GenerateSettings()
         {
-            if (mod.loaded)
-            {
+            if (!mod.actualMod.HasValidSettings()) return;
 
+            UISettings = new List<ModSettingUI_Base>();
+
+            foreach (Tuple<FieldInfo, string> fieldData in mod.actualMod.settings.Settings)
+            {
+                if (fieldData.Item2 != null)
+                {
+                    GameObject settingUIGO = Instantiate(Loader.Instance.prefabs.settingHeader, transform);
+                    ModSettingUI_Header headerUI = settingUIGO.GetComponent<ModSettingUI_Header>();
+                    headerUI.title.text = fieldData.Item1.GetCustomAttribute<SettingTitleAttribute>().name;
+                    UISettings.Add(headerUI);
+                }
+
+                ModSettingAttribute attribute = fieldData.Item1.GetCustomAttribute<ModSettingAttribute>();
+                GameObject UIGO = null;
+                
+                switch (attribute)
+                {
+                    case IntegerSettingAttribute intAttribute:
+                        if (intAttribute.isSliderType)
+                        {
+                            UIGO = Instantiate(Loader.Instance.prefabs.intSliderSetting, transform);
+                        }
+                        else
+                        {
+                            UIGO = Instantiate(Loader.Instance.prefabs.intSetting, transform);
+                        }
+                        break;
+                    case StringSettingAttribute stringAttribute:
+                        UIGO = Instantiate(Loader.Instance.prefabs.stringSetting, transform);
+                        break;
+                    case FloatSettingAttribute floatAttribute:
+                        if (floatAttribute.isSliderType)
+                        {
+                            UIGO = Instantiate(Loader.Instance.prefabs.floatSliderSetting, transform);
+                        }
+                        else
+                        {
+                            UIGO = Instantiate(Loader.Instance.prefabs.floatSetting, transform);
+                        }
+                        break;
+                    case BoolSettingAttribute boolAttribute:
+                        UIGO = Instantiate(Loader.Instance.prefabs.boolSetting, transform);
+                        break;
+                }
+
+                ModSettingUI_Base modSetting = UIGO.GetComponent<ModSettingUI_Base>();
+                modSetting.attribute = attribute;
+                modSetting.OnInitialized();
+                UISettings.Add(modSetting);
             }
+
+            SetPositionsOfSettings();
+
+            settingsButton.gameObject.SetActive(true);
+            settingsButton.onClick.AddListener(OnSettingsToggle);
+        }
+
+        private void SetPositionsOfSettings()
+        {
+            int y = initialSpacingAtFirstSetting;
+
+            foreach (ModSettingUI_Base setting in UISettings)
+            {
+                ((RectTransform)setting.transform).localPosition = new Vector3(0, y, 0);
+                y += (int)((RectTransform)setting.transform).sizeDelta.y;
+                y += spacingBetweenSettings;
+            }
+
+            ((RectTransform)transform).sizeDelta = new Vector2(((RectTransform)transform).sizeDelta.x, y);
         }
 
         public void OnGitPress()

@@ -22,6 +22,8 @@ namespace OSLoader
         public const string modsInfoFilename = @"info.json";
         public const string assetBundleFilepath = @"loader";
 
+        public Prefabs prefabs;
+
         public List<ModReference> mods = new List<ModReference>();
 
         public Logger logger = new Logger("OS Loader", true, true);

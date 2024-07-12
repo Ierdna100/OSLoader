@@ -13,7 +13,6 @@ namespace OSLoader
         public ModSettingAttribute attribute;
 
         public ModEntryUI modEntryUI;
-        public ModReference modReference;
 
         public TMP_Text title;
 
@@ -23,5 +22,10 @@ namespace OSLoader
         }
 
         public abstract void OnSave();
+
+        public virtual void OnInitialized()
+        {
+            title.text = attribute.name;
+        }
     }
 }

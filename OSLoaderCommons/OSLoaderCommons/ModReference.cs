@@ -19,6 +19,8 @@ namespace OSLoader
 
         public Mod actualMod;
 
+        public Action generateUISettings;
+
         public ModReference(string filepath)
         {
             string[] possibleAssembly = Directory.GetFiles(filepath, "*.dll");
@@ -85,6 +87,7 @@ namespace OSLoader
             actualMod = modGO.GetComponent<Mod>();
             actualMod.info = info;
             actualMod.OnModLoaded();
+            generateUISettings?.Invoke();
             if (actualMod.HasValidSettings())
             {
                 if (!File.Exists(info.settingsFilepath))
