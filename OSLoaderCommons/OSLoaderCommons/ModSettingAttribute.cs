@@ -28,6 +28,16 @@ namespace OSLoader
         }
     }
 
+    public sealed class OnChangedCallbackAttribute : Attribute
+    {
+        internal Action onChanged;
+
+        public OnChangedCallbackAttribute(Action onChanged)
+        {
+            this.onChanged = onChanged;
+        }
+    }
+
     [AttributeUsage(AttributeTargets.Field)]
     public sealed class StringSettingAttribute : ModSettingAttribute
     {

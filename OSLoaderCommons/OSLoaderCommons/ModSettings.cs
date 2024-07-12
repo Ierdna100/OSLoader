@@ -9,8 +9,7 @@ namespace OSLoader
 {
     public abstract class ModSettings
     {
-        // String indicates a title that should go above it
-        public List<Tuple<FieldInfo, string>> Settings { get; internal set; } = new List<Tuple<FieldInfo, string>>();
+        public List<ModSetting> Settings { get; internal set; } = new List<ModSetting>();
 
         public ModSettings()
         {
@@ -18,11 +17,18 @@ namespace OSLoader
             {
                 FieldInfo settingField = null;
                 string settingTitle = null;
+                List<Action> callbacks = new List<Action>();
                 foreach (Attribute attribute in fieldInfo.GetCustomAttributes())
                 {
                     if (attribute is SettingTitleAttribute title)
                     {
                         settingTitle = title.name;
+                        continue;
+                    }
+
+                    if (attribute is OnChangedCallbackAttribute callbackAttribute)
+                    {
+                        callbacks.Add(callbackAttribute.onChanged);
                         continue;
                     }
 
@@ -64,7 +70,7 @@ namespace OSLoader
                     return;
                 }
 
-                Settings.Add(new Tuple<FieldInfo, string>(settingField, settingTitle));
+                Settings.Add(new ModSetting(settingField, settingTitle, callbacks));
             }
         }
     }
