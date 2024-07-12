@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1324831792, guid: c2d29d6c8b67d784ab13fe2b1ecdb084, type: 3}
+  m_Script: {fileID: 1324831792, guid: cfaaa3d3899d95347b01b0d177510385, type: 3}
   m_Name: Mod States
   m_EditorClassIdentifier: 
-  error: {fileID: 21300000, guid: 061049bd506973d4bbc5e36ebcba1dff, type: 3}
-  dependencyIssue: {fileID: 21300000, guid: 13dbe109411dcc04a97b99060f0566ff, type: 3}
-  unloaded: {fileID: 21300000, guid: 52e4cf5c7cd4d554786120f28b67b34d, type: 3}
-  loaded: {fileID: 21300000, guid: feba5ef118b52a74ab4476edd9e66339, type: 3}
+  error: {fileID: 21300000, guid: 7bd27db6c6d5ccb4d9df4f3760a0df44, type: 3}
+  dependencyIssue: {fileID: 21300000, guid: cab14f3c9d8637545adbc6e9a1daf0ca, type: 3}
+  unloaded: {fileID: 21300000, guid: 46876ffd300d19047a8feea04350b262, type: 3}
+  loaded: {fileID: 21300000, guid: a7737afc5fbae1b4f83db892a6b4f049, type: 3}
