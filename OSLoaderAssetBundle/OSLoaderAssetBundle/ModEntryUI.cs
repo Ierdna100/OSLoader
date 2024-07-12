@@ -70,17 +70,17 @@ namespace OSLoader
 
             UISettings = new List<ModSettingUI_Base>();
 
-            foreach (Tuple<FieldInfo, string> fieldData in mod.actualMod.settings.Settings)
+            foreach (ModSetting setting in mod.actualMod.settings.Settings)
             {
-                if (fieldData.Item2 != null)
+                if (setting.header != null)
                 {
                     GameObject settingUIGO = Instantiate(Loader.Instance.prefabs.settingHeader, transform);
                     ModSettingUI_Header headerUI = settingUIGO.GetComponent<ModSettingUI_Header>();
-                    headerUI.title.text = fieldData.Item1.GetCustomAttribute<SettingTitleAttribute>().name;
+                    headerUI.title.text = setting.field.GetCustomAttribute<SettingTitleAttribute>().name;
                     UISettings.Add(headerUI);
                 }
 
-                ModSettingAttribute attribute = fieldData.Item1.GetCustomAttribute<ModSettingAttribute>();
+                ModSettingAttribute attribute = setting.field.GetCustomAttribute<ModSettingAttribute>();
                 GameObject UIGO = null;
                 
                 switch (attribute)
@@ -115,6 +115,7 @@ namespace OSLoader
 
                 ModSettingUI_Base modSetting = UIGO.GetComponent<ModSettingUI_Base>();
                 modSetting.attribute = attribute;
+                modSetting.onChangedCallbacks = setting.callbacks;
                 modSetting.OnInitialized();
                 UISettings.Add(modSetting);
             }
