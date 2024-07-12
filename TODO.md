@@ -1,0 +1,12 @@
+- Enum setting
+    - Using Enum.Keysof()
+- Keybind setting
+- Array setting for bools/strings, maps of stuff to toggle on/off
+- OnSceneLoaded callback
+- CurrentScene property
+- Dependency callback (OnSubModLoaded()) + mod types (Dependency, normal mod, mod depending on mod)
+- Headers for setting menu (to implement in asset bundle)
+- Title bar in menu
+- Fix dependencies to be in a single folder
+- Automate build scripts
+- Static logger reference
