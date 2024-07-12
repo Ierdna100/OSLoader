@@ -13,25 +13,25 @@
 
   <ItemGroup>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>..\dependencies\Unity.TextMeshPro.dll</HintPath>
+      <HintPath>..\..\Dependencies\Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
-      <HintPath>..\..\TestMod\Dependencies\UnityEngine.AssetBundleModule.dll</HintPath>
+      <HintPath>..\..\Dependencies\UnityEngine.AssetBundleModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\dependencies\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\Dependencies\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>..\dependencies\UnityEngine.IMGUIModule.dll</HintPath>
+      <HintPath>..\..\Dependencies\UnityEngine.IMGUIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.InputLegacyModule">
-      <HintPath>..\dependencies\UnityEngine.InputLegacyModule.dll</HintPath>
+      <HintPath>..\..\Dependencies\UnityEngine.InputLegacyModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\dependencies\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\..\Dependencies\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UIElementsModule">
-      <HintPath>..\dependencies\UnityEngine.UIElementsModule.dll</HintPath>
+      <HintPath>..\..\Dependencies\UnityEngine.UIElementsModule.dll</HintPath>
     </Reference>
   </ItemGroup>
 
