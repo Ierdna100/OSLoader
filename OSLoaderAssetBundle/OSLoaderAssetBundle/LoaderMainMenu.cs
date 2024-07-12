@@ -71,6 +71,8 @@ namespace OSLoader
 
         public void OnSave()
         {
+            modUIs.ForEach(modUI => modUI.UISettings.ForEach(setting => setting.OnSave()));
+            Loader.Instance.mods.ForEach(mod => mod.actualMod.SaveSettings());
             SetConfirmationText("Successfully saved settings!", Color.green);
         }
 

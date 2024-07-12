@@ -5,6 +5,10 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OSLoaderAssetBundle", "OSLoaderAssetBundle\OSLoaderAssetBundle.csproj", "{85880373-1BA5-404E-B4B0-9DFF615B710D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OSLoader", "..\OSLoader\OSLoader\OSLoader.csproj", "{5B17DFA7-1AB9-41B6-B99B-0A876D50E571}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "OSLoaderCommons", "..\OSLoaderCommons\OSLoaderCommons\OSLoaderCommons.shproj", "{6814FB67-87AE-4CE3-85E8-372434F1B060}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,10 @@ Global
 		{85880373-1BA5-404E-B4B0-9DFF615B710D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85880373-1BA5-404E-B4B0-9DFF615B710D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85880373-1BA5-404E-B4B0-9DFF615B710D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B17DFA7-1AB9-41B6-B99B-0A876D50E571}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B17DFA7-1AB9-41B6-B99B-0A876D50E571}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B17DFA7-1AB9-41B6-B99B-0A876D50E571}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B17DFA7-1AB9-41B6-B99B-0A876D50E571}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -23,6 +31,8 @@ Global
 		SolutionGuid = {44AF7A43-E357-401F-960C-93E8AA92354F}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\OSLoaderCommons\OSLoaderCommons\OSLoaderCommons.projitems*{5b17dfa7-1ab9-41b6-b99b-0a876d50e571}*SharedItemsImports = 5
+		..\OSLoaderCommons\OSLoaderCommons\OSLoaderCommons.projitems*{6814fb67-87ae-4ce3-85e8-372434f1b060}*SharedItemsImports = 13
 		..\OSLoaderCommons\OSLoaderCommons\OSLoaderCommons.projitems*{85880373-1ba5-404e-b4b0-9dff615b710d}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

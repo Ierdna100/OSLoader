@@ -23,7 +23,7 @@ namespace OSLoader
             onChangedCallbacks.ForEach(callback => callback.Invoke());
         }
 
-        protected abstract void OnSave();
+        public abstract void OnSave();
 
         public virtual void OnInitialized()
         {

@@ -18,13 +18,10 @@ namespace OSLoader
             logger = new Logger(info.name);
         }
 
-        public virtual void OnSettingsChanged() { }
-
         public void SaveSettings()
         {
             if (!HasValidSettings()) return;
             File.WriteAllText(info.settingsFilepath, JsonConvert.SerializeObject(settings, Formatting.Indented));
-            OnSettingsChanged();
         }
 
         public bool HasSettings()

@@ -15,8 +15,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Mod.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModReference.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModSetting.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModSettingAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ScriptableObjects\ModStates.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ScriptableObjects\Prefabs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StringConstraints.cs" />
   </ItemGroup>
 </Project>

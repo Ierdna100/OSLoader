@@ -20,9 +20,6 @@
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\..\Dependencies\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>..\..\Dependencies\UnityEngine.IMGUIModule.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.InputLegacyModule">
       <HintPath>..\..\Dependencies\UnityEngine.InputLegacyModule.dll</HintPath>
     </Reference>

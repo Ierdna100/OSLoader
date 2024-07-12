@@ -16,11 +16,22 @@ namespace OSLoader
             private set { }
         }
 
-        /*public static OSScene CurrentScene
+        public static OSScene CurrentScene { get; internal set; }
+
+        public static bool IsModLoaded(string modName)
         {
-            get { return Loader.Instance.currentScene; }
-            private set { }
-        }*/
+            return false;
+        }
+
+        public static bool IsModValid(string modName)
+        {
+            return false;
+        }
+
+        public static string GetConfigFilepath(Mod mod)
+        {
+            return mod.info.settingsFilepath;
+        }
     }
 }
 

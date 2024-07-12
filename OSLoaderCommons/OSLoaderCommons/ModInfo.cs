@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using System.IO;
+using OSLoaderCommons;
 
 namespace OSLoader
 {
     public class ModInfo
     {
+        internal ModType modType;
+
         [JsonIgnore]
         internal string infoFilepath;
         [JsonIgnore]
