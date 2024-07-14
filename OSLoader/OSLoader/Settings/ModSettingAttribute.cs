@@ -28,14 +28,9 @@ namespace OSLoader
         }
     }
 
-    public sealed class OnChangedCallbackAttribute : Attribute
+    public abstract class OnChangedCallbackAttribute : Attribute
     {
-        internal Action onChanged;
-
-        public OnChangedCallbackAttribute(Action onChanged)
-        {
-            this.onChanged = onChanged;
-        }
+        public abstract void OnChanged();
     }
 
     [AttributeUsage(AttributeTargets.Field)]

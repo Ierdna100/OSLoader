@@ -29,7 +29,7 @@ namespace OSLoader
 
                     if (attribute is OnChangedCallbackAttribute callbackAttribute)
                     {
-                        callbacks.Add(callbackAttribute.onChanged);
+                        callbacks.Add(callbackAttribute.OnChanged);
                         continue;
                     }
 

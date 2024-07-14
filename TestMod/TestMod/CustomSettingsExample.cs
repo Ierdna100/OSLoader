@@ -45,11 +45,8 @@ namespace TestMod
         public string aStringSetting = "Default value";
 
         // ------------------------------------------------------------------
-
-        // This feature is not supported yet! Do not use it.
-        // String constraints will be supported in the future. These will determine what the user is allowed to input.
-        [StringSetting("", StringConstraints.NoSpaces | StringConstraints.NoAlphas)]
-        public string exampleOfWhatsToCome = "";
+        //                       Extra functionality
+        // ------------------------------------------------------------------
 
         // Headers to separate setting sections are also available. No UI is present for them
         // yet, but they will be registered nonetheless internally.
@@ -57,5 +54,22 @@ namespace TestMod
         [SettingTitle("A header above this setting")]
         [BoolSetting("")]
         public bool titleExample = true;
+
+        // You can use callbacks by creating your own attribute that inherits the one this does
+        // See its implementation in TestMod.cs
+        // Multiple callbacks are supported
+        [CallbackSettingExample]
+        [CallbackSettingExample2]
+        [BoolSetting("")]
+        public bool callbackExample = true;
+
+        // ------------------------------------------------------------------
+        //                       Currently unsupported
+        // ------------------------------------------------------------------
+
+        // This feature is not supported yet! Do not use it.
+        // String constraints will be supported in the future. These will determine what the user is allowed to input.
+        [StringSetting("", StringConstraints.NoSpaces | StringConstraints.NoAlphas)]
+        public string exampleOfWhatsToCome = "";
     }
 }
