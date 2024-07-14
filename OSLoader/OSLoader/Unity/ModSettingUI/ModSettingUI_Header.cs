@@ -10,5 +10,9 @@ namespace OSLoader
         public override void OnSave()
         {
         }
+
+        protected override void OnceEnabled()
+        {
+        }
     }
 }

@@ -489,7 +489,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1815393000472708681}
-  - component: {fileID: 5647541131073514903}
+  - component: {fileID: 1230716423562971704}
   m_Layer: 5
   m_Name: Slider Integer Setting
   m_TagString: Untagged
@@ -514,12 +514,12 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -20}
   m_SizeDelta: {x: 1250, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5647541131073514903
+--- !u!114 &1230716423562971704
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -528,14 +528,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1815393000472708680}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -429252295, guid: cfaaa3d3899d95347b01b0d177510385, type: 3}
+  m_Script: {fileID: -429252295, guid: 36263b52132a94443b0cf6ba85f988ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   modEntryUI: {fileID: 0}
   title: {fileID: 1815393000627447686}
+  initialized: 0
   localValue: 0
   valueDisplay: {fileID: 1815392999374948949}
   slider: {fileID: 1815393000444885827}
+  input: {fileID: 0}
 --- !u!1 &1815393000627447684
 GameObject:
   m_ObjectHideFlags: 0

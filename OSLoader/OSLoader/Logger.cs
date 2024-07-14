@@ -48,6 +48,11 @@ namespace OSLoader {
             }
         }
 
+        public void Log(bool boolean)
+        {
+            Log(boolean.ToString());
+        }
+
         public void Log(int integer)
         {
             Log(integer.ToString());

@@ -15,6 +15,7 @@ namespace OSLoader
 
         public TMP_Text valueDisplay;
         public Slider slider;
+        public TMP_InputField input;
 
         public override void OnInitialized()
         {
@@ -26,7 +27,15 @@ namespace OSLoader
                 slider.value = localValue;
                 slider.maxValue = _attribute.maxValue;
                 slider.minValue = _attribute.minValue;
+                slider.onValueChanged.AddListener(UpdateValue);
             }
+            else
+            {
+                input.onDeselect.AddListener(OnValueEntered);
+                input.onEndEdit.AddListener(OnValueEntered);
+                input.onSubmit.AddListener(OnValueEntered);
+            }
+            OnceEnabled();
         }
 
         private void OnValueEntered(string newValue)
@@ -35,25 +44,37 @@ namespace OSLoader
             if(!float.TryParse(newValue, out localValue))
             {
                 localValue = oldLocalValue;
+                input.text = localValue.ToString();
             }
             else
             {
                 UpdateValue(localValue);
-                UpdateText();
             }
         }
 
         private void UpdateValue(float newValue)
         {
             float step = ((FloatSettingAttribute)attribute).step;
-            localValue = Mathf.Floor(newValue / step * step);
+            if (step == 0)
+            {
+                localValue = newValue;
+            }
+            else
+            {
+                localValue = Mathf.Floor(newValue / step * step);
+            }
+
+            if (isSliderType)
+            {
+                UpdateText();
+            }
             OnSettingChanged();
         }
 
         private void UpdateText()
         {
             FloatSettingAttribute _attribute = (FloatSettingAttribute)attribute;
-            if (_attribute.customFormatter == null || _attribute.customFormatter == string.Empty)
+            if (string.IsNullOrEmpty(_attribute.customFormatter))
             {
                 valueDisplay.text = localValue.ToString();
                 return;
@@ -70,11 +91,18 @@ namespace OSLoader
             }
         }
 
-        private void OnEnable()
+        protected override void OnceEnabled()
         {
             localValue = (float)linkedField.GetValue(modEntryUI.mod.actualMod.settings);
-            if (isSliderType) slider.value = localValue;
-            else UpdateText();
+            if (isSliderType)
+            {
+                slider.value = localValue;
+                UpdateText();
+            }
+            else
+            {
+                input.text = localValue.ToString();
+            }
         }
 
         public override void OnSave()

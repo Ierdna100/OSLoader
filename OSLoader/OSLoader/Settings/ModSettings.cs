@@ -9,6 +9,7 @@ namespace OSLoader
 {
     public abstract class ModSettings
     {
+        [JsonIgnore]
         public List<ModSetting> Settings { get; internal set; } = new List<ModSetting>();
 
         public ModSettings()

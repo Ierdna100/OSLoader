@@ -6,9 +6,15 @@ namespace OSLoader
 {
     internal class ModSettingUI_Bool : ModSettingUI_Base
     {
-        bool localValue;
+        private bool localValue;
 
-        private void OnEnable()
+        public override void OnInitialized()
+        {
+            base.OnInitialized();
+            OnceEnabled();
+        }
+
+        protected override void OnceEnabled()
         {
             localValue = (bool)linkedField.GetValue(modEntryUI.mod.actualMod.settings);
         }

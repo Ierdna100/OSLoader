@@ -21,6 +21,7 @@ namespace OSLoader
 
             input.characterLimit = _attribute.maxLength == uint.MaxValue ? 0 : (int)_attribute.maxLength;
             input.characterValidation = TMP_InputField.CharacterValidation.Regex;
+            OnceEnabled();
         }
 
         private void OnEditEnd(string newValue)
@@ -55,7 +56,7 @@ namespace OSLoader
             OnSettingChanged();
         }
 
-        private void OnEnable()
+        protected override void OnceEnabled()
         {
 
         }

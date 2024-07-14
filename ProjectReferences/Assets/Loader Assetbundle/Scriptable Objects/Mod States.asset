@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1324831792, guid: cfaaa3d3899d95347b01b0d177510385, type: 3}
+  m_Script: {fileID: 1324831792, guid: 36263b52132a94443b0cf6ba85f988ba, type: 3}
   m_Name: Mod States
   m_EditorClassIdentifier: 
   error: {fileID: 21300000, guid: 7bd27db6c6d5ccb4d9df4f3760a0df44, type: 3}

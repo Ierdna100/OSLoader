@@ -988,7 +988,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1162,7 +1162,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4604357523395962867}
-  - component: {fileID: 7780529883546902706}
+  - component: {fileID: 5811631745994143338}
   m_Layer: 5
   m_Name: Loader Menu
   m_TagString: Untagged
@@ -1190,7 +1190,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1344, y: 756}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7780529883546902706
+--- !u!114 &5811631745994143338
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1199,14 +1199,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 4604357523395962866}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1504105065, guid: cfaaa3d3899d95347b01b0d177510385, type: 3}
+  m_Script: {fileID: 1504105065, guid: 36263b52132a94443b0cf6ba85f988ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   loaderMenu: {fileID: 4604357524252697597}
   noModsFoundText: {fileID: 4604357522521528226}
   title: {fileID: 4604357522884415647}
   confirmationText: {fileID: 4604357523524198912}
-  confirmationTextLifetime: 0
+  confirmationTextLifetime: 200
   confirmationTextLife: 0
   closeButton: {fileID: 4604357523005274383}
   saveButton: {fileID: 4604357523785699617}
@@ -1607,7 +1607,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 4604357523785699806}
   m_OnClick:
     m_PersistentCalls:
@@ -2225,7 +2225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4604357524252697594
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2322,7 +2322,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}

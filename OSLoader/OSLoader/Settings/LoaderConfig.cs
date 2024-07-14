@@ -10,6 +10,7 @@ namespace OSLoader {
         public bool logDetails;
         public bool enabled;
 
+        [JsonProperty]
         private string version;
 
         [JsonIgnore]

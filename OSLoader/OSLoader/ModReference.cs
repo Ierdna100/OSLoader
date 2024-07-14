@@ -87,7 +87,6 @@ namespace OSLoader
             actualMod = modGO.GetComponent<Mod>();
             actualMod.info = info;
             actualMod.OnModLoaded();
-            generateUISettings?.Invoke();
             if (actualMod.HasValidSettings())
             {
                 if (!File.Exists(info.settingsFilepath))
@@ -96,9 +95,10 @@ namespace OSLoader
                 }
                 else
                 {
-                    actualMod.settings = JsonConvert.DeserializeObject<ModSettings>(File.ReadAllText(info.settingsFilepath));
+                    actualMod.settings = (ModSettings)JsonConvert.DeserializeObject(File.ReadAllText(info.settingsFilepath), actualMod.settings.GetType());
                 }
             }
+            generateUISettings?.Invoke();
 
             loaded = true;
 

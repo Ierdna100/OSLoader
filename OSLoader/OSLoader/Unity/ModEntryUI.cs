@@ -20,13 +20,20 @@ namespace OSLoader
         public Button gitLink;
         public Button externalLink;
         public Button settingsButton;
+        public Toggle enableMod;
+
+        public GameObject settingsContainer;
+        public Image statusIcon;
 
         public List<ModSettingUI_Base> UISettings;
 
-        public const int initialSpacingAtFirstSetting = 5;
-        public const int spacingBetweenSettings = 2;
+        public readonly Vector2 settingsClosedSizeDelta = new Vector2(1300, 75);
+        public Vector2 settingsOpenSizeDelta;
 
-        public void OnInitialized()
+        public const int initialSpacingAtFirstSetting = 30;
+        public const int spacingBetweenSettings = 0;
+
+        public void Initialize()
         {
             if (mod == null)
             {
@@ -49,19 +56,34 @@ namespace OSLoader
             if (mod.loaded)
             {
                 GenerateSettings();
+                statusIcon.sprite = Loader.Instance.modStates.loaded;
             }
             else
             {
                 mod.generateUISettings = GenerateSettings;
+                statusIcon.sprite = Loader.Instance.modStates.unloaded;
             }
 
-            modName.text = mod.actualMod.info.name;
-            version.text = mod.actualMod.info.Version.ToString();
+            if (!mod.valid)
+            {
+                statusIcon.sprite = Loader.Instance.modStates.error;
+            }
+
+            modName.text = mod.info.name;
+            version.text = mod.info.Version.ToString();
+            enableMod.isOn = mod.loaded;
+            enableMod.onValueChanged.AddListener(OnModEnable);
+            settingsContainer.SetActive(false);
         }
 
-        public void OnAnyValueChanged()
+        private void OnModEnable(bool newValue)
         {
-
+            mod.Load();
+            enableMod.isOn = mod.loaded;
+            if (mod.loaded)
+            {
+                statusIcon.sprite = Loader.Instance.modStates.loaded;
+            }
         }
 
         private void GenerateSettings()
@@ -72,9 +94,9 @@ namespace OSLoader
 
             foreach (ModSetting setting in mod.actualMod.settings.Settings)
             {
-                if (setting.header != null)
+                if (false && setting.header != null)
                 {
-                    GameObject settingUIGO = Instantiate(Loader.Instance.prefabs.settingHeader, transform);
+                    GameObject settingUIGO = Instantiate(Loader.Instance.prefabs.settingHeader, settingsContainer.transform);
                     ModSettingUI_Header headerUI = settingUIGO.GetComponent<ModSettingUI_Header>();
                     headerUI.title.text = setting.field.GetCustomAttribute<SettingTitleAttribute>().name;
                     UISettings.Add(headerUI);
@@ -88,34 +110,36 @@ namespace OSLoader
                     case IntegerSettingAttribute intAttribute:
                         if (intAttribute.isSliderType)
                         {
-                            UIGO = Instantiate(Loader.Instance.prefabs.intSliderSetting, transform);
+                            UIGO = Instantiate(Loader.Instance.prefabs.intSliderSetting, settingsContainer.transform);
                         }
                         else
                         {
-                            UIGO = Instantiate(Loader.Instance.prefabs.intSetting, transform);
+                            UIGO = Instantiate(Loader.Instance.prefabs.intSetting, settingsContainer.transform);
                         }
                         break;
                     case StringSettingAttribute stringAttribute:
-                        UIGO = Instantiate(Loader.Instance.prefabs.stringSetting, transform);
+                        UIGO = Instantiate(Loader.Instance.prefabs.stringSetting, settingsContainer.transform);
                         break;
                     case FloatSettingAttribute floatAttribute:
                         if (floatAttribute.isSliderType)
                         {
-                            UIGO = Instantiate(Loader.Instance.prefabs.floatSliderSetting, transform);
+                            UIGO = Instantiate(Loader.Instance.prefabs.floatSliderSetting, settingsContainer.transform);
                         }
                         else
                         {
-                            UIGO = Instantiate(Loader.Instance.prefabs.floatSetting, transform);
+                            UIGO = Instantiate(Loader.Instance.prefabs.floatSetting, settingsContainer.transform);
                         }
                         break;
                     case BoolSettingAttribute boolAttribute:
-                        UIGO = Instantiate(Loader.Instance.prefabs.boolSetting, transform);
+                        UIGO = Instantiate(Loader.Instance.prefabs.boolSetting, settingsContainer.transform);
                         break;
                 }
 
                 ModSettingUI_Base modSetting = UIGO.GetComponent<ModSettingUI_Base>();
                 modSetting.attribute = attribute;
+                modSetting.linkedField = setting.field;
                 modSetting.onChangedCallbacks = setting.callbacks;
+                modSetting.modEntryUI = this;
                 modSetting.OnInitialized();
                 UISettings.Add(modSetting);
             }
@@ -132,27 +156,39 @@ namespace OSLoader
 
             foreach (ModSettingUI_Base setting in UISettings)
             {
-                ((RectTransform)setting.transform).localPosition = new Vector3(0, y, 0);
+                // Reminder that the y axis points down in UI
+                ((RectTransform)setting.transform).localPosition = new Vector3(0, -y, 0);
                 y += (int)((RectTransform)setting.transform).sizeDelta.y;
                 y += spacingBetweenSettings;
             }
 
-            ((RectTransform)transform).sizeDelta = new Vector2(((RectTransform)transform).sizeDelta.x, y);
+            // Account for last setting's height
+            y += (int)settingsClosedSizeDelta.y - initialSpacingAtFirstSetting;
+            settingsOpenSizeDelta = new Vector2(((RectTransform)transform).sizeDelta.x, y);
         }
 
         public void OnGitPress()
         {
-            Application.OpenURL(mod.actualMod.info.repositoryUrl);
+            Application.OpenURL(mod.info.repositoryUrl);
         }
 
         public void OnExternalLinkPress()
         {
-            Application.OpenURL(mod.actualMod.info.modUrl);
+            Application.OpenURL(mod.info.modUrl);
         }
 
         public void OnSettingsToggle()
         {
-
+            settingsContainer.SetActive(!settingsContainer.activeSelf);
+            if (settingsContainer.activeSelf)
+            {
+                ((RectTransform)transform).sizeDelta = settingsOpenSizeDelta;
+            }
+            else
+            {
+                ((RectTransform)transform).sizeDelta = settingsClosedSizeDelta;
+            }
+            LoaderMainMenu.Instance.UpdateModPositions();
         }
     }
 }

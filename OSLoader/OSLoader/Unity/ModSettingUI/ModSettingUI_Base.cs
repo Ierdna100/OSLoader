@@ -17,9 +17,11 @@ namespace OSLoader
 
         public TMP_Text title;
 
+        public bool initialized = false;
+
         protected void OnSettingChanged()
         {
-            modEntryUI.OnAnyValueChanged();
+            LoaderMainMenu.Instance.OnAnyValueChanged();
             onChangedCallbacks.ForEach(callback => callback.Invoke());
         }
 
@@ -28,6 +30,15 @@ namespace OSLoader
         public virtual void OnInitialized()
         {
             title.text = attribute.name;
+            initialized = true;
         }
+
+        private void OnEnable()
+        {
+            if (!initialized) return;
+            OnceEnabled();
+        }
+
+        protected abstract void OnceEnabled();
     }
 }

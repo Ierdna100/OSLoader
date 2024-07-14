@@ -6,16 +6,18 @@
 
   <ItemGroup>
     <Reference Include="OSLoader">
-      <HintPath>..\Dependencies\OSLoader.dll</HintPath>
+      <HintPath>..\..\OSLoader\OSLoader\bin\Release\netstandard2.0\OSLoader.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\Dependencies\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\Dependencies\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <!-- Uncomment this and change the paths to something that makes sense for you to auotmate moving the built file. -->
+	<!-- 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="copy &quot;$(TargetPath)&quot; &quot;D:\steam library\steamapps\common\Obenseuer\OSLoader\mods\TestMod&quot;&#xD;&#xA;" />
   </Target>
+   -->
 
 </Project>

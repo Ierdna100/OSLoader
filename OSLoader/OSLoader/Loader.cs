@@ -5,6 +5,9 @@ using Newtonsoft.Json;
 using UnityEngine;
 using System.IO;
 using UnityEngine.SceneManagement;
+using System.Reflection;
+using System.Linq;
+using Unity.Collections;
 
 namespace OSLoader
 {
@@ -23,6 +26,7 @@ namespace OSLoader
         public const string assetBundleFilepath = @"loader";
 
         public Prefabs prefabs;
+        public ModStates modStates;
 
         public List<ModReference> mods = new List<ModReference>();
 
@@ -30,8 +34,6 @@ namespace OSLoader
 
         public AssetBundle assetBundle;
         public LoaderConfig config;
-
-        //public LoaderUI loaderUI;
 
         //public OSScene currentScene;
         
@@ -87,9 +89,12 @@ namespace OSLoader
             }
 
             // Create mod UI
-            //GameObject loaderUIGO = new GameObject("Loader UI", typeof(LoaderUI));
-            //GameObject.DontDestroyOnLoad(loaderUIGO);
-            // loaderUI = loaderUIGO.GetComponent<LoaderUI>();
+            prefabs = assetBundle.LoadAllAssets<Prefabs>().SingleOrDefault();
+            modStates = assetBundle.LoadAllAssets<ModStates>().SingleOrDefault();
+
+            GameObject loaderCanvas = GameObject.Instantiate(prefabs.canvas);
+            GameObject.DontDestroyOnLoad(loaderCanvas);
+            GameObject.Instantiate(prefabs.loaderMenu, loaderCanvas.transform).GetComponent<LoaderMainMenu>().Initialize();
 
             // Mod loading
             logger.Log("Loading mods...");

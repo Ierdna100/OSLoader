@@ -248,6 +248,12 @@
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>C:/Program Files/Unity 2019.4.40f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>D:/everything/kode/csharp/OSLoader/ProjectReferences/Assets/Dependencies/Newtonsoft.Json.dll</HintPath>
+ </Reference>
+ <Reference Include="OSLoader">
+ <HintPath>D:/everything/kode/csharp/OSLoader/ProjectReferences/Assets/Dependencies/OSLoader.dll</HintPath>
+ </Reference>
  <Reference Include="log4netPlastic">
  <HintPath>D:/everything/kode/csharp/OSLoader/ProjectReferences/Library/PackageCache/com.unity.collab-proxy@1.14.18/Lib/Editor/PlasticSCM/log4netPlastic.dll</HintPath>
  </Reference>
@@ -259,12 +265,6 @@
  </Reference>
  <Reference Include="unityplastic">
  <HintPath>D:/everything/kode/csharp/OSLoader/ProjectReferences/Library/PackageCache/com.unity.collab-proxy@1.14.18/Lib/Editor/PlasticSCM/unityplastic.dll</HintPath>
- </Reference>
- <Reference Include="OSLoaderAssetBundle">
- <HintPath>D:/everything/kode/csharp/OSLoader/ProjectReferences/Assets/Dependencies/OSLoaderAssetBundle.dll</HintPath>
- </Reference>
- <Reference Include="Newtonsoft.Json">
- <HintPath>D:/everything/kode/csharp/OSLoader/ProjectReferences/Assets/Dependencies/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
  <HintPath>D:/everything/kode/csharp/OSLoader/ProjectReferences/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>

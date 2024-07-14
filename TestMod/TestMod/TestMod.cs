@@ -9,7 +9,7 @@ namespace TestMod
         {
             base.OnModLoaded();
             settings = new CustomSettingsExample();
-            logger.Log("This mod was loaded! Version 2!");
+            logger.Log("This mod was loaded! Version 3!");
         }
     }
 }

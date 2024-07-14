@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1796246267, guid: cfaaa3d3899d95347b01b0d177510385, type: 3}
+  m_Script: {fileID: 1796246267, guid: 36263b52132a94443b0cf6ba85f988ba, type: 3}
   m_Name: Prefabs
   m_EditorClassIdentifier: 
+  canvas: {fileID: 345527844804562563, guid: 063cc387ea1f97847a0849fd9267771b, type: 3}
   loaderMenu: {fileID: 4604357523395962866, guid: 4d00d5d7feb79f141aeea9f3c34321d7,
     type: 3}
   modEntry: {fileID: 6083284391864257948, guid: 3ab9f681c0f869e478f0cfa8d0e64119,
@@ -21,11 +22,11 @@ MonoBehaviour:
     type: 3}
   intSetting: {fileID: 2083547851761006940, guid: f3eefdab339f14c45a0c3d415609889e,
     type: 3}
-  floatSetting: {fileID: 3410186717127670277, guid: beb49feffcb1a39438849ea6debb0859,
-    type: 3}
-  boolSetting: {fileID: 7449033388456613279, guid: 3fbe9deca39338841b021031f8dbc488,
-    type: 3}
   intSliderSetting: {fileID: 1815393000472708680, guid: 414145ab0e5a84346a084098899f304a,
     type: 3}
+  floatSetting: {fileID: 3410186717127670277, guid: beb49feffcb1a39438849ea6debb0859,
+    type: 3}
   floatSliderSetting: {fileID: 7346622843831227139, guid: aeda748cfd93f1a4aafcab63db1659e7,
+    type: 3}
+  boolSetting: {fileID: 7449033388456613279, guid: 3fbe9deca39338841b021031f8dbc488,
     type: 3}
