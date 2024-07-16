@@ -1,3 +1,0 @@
-Dependencies:
-	- OSLoader.dll (Part of the Post-Build process of OSLoader.csproj)
-	- UnityEngine.CoreModule.dll

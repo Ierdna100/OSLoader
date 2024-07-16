@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <Reference Include="OSLoader">
-      <HintPath>..\..\OSLoader\OSLoader\bin\Release\netstandard2.0\OSLoader.dll</HintPath>
+      <HintPath>..\..\Dependencies\OSLoader.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\..\Dependencies\UnityEngine.CoreModule.dll</HintPath>

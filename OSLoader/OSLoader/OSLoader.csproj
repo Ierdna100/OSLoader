@@ -27,4 +27,8 @@
 		</Reference>
 	</ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;$(TargetPath)&quot; &quot;..\..\Dependencies\&quot;&#xD;&#xA;" />
+    <Exec Command="copy &quot;$(TargetPath)&quot; &quot;..\..\ProjectReferences\Assets\Dependencies\&quot;&#xD;&#xA;" />
+  </Target>
 </Project>
