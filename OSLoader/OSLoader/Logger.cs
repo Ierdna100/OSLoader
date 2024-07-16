@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using UnityEngine;
+using Newtonsoft.Json;
 
 namespace OSLoader {
     public class Logger
     {
         private readonly string name;
         private readonly bool logToLoaderLog;
+        private readonly bool logTimestamps;
 
         private const string loaderFileFilepath = @"./loader.log";
 
         public bool logDetails = false;
 
-        public Logger(string name, bool logToLoaderLog = false, bool logDetails = false)
+        public Logger(string name, bool logToLoaderLog = false, bool logDetails = false, bool logTimestamps = true)
         {
             this.name = name;
             this.logToLoaderLog = logToLoaderLog;
             this.logDetails = logDetails;
+            this.logTimestamps = logTimestamps;
         }
 
         public static void Initialize()
@@ -48,60 +51,72 @@ namespace OSLoader {
             }
         }
 
-        public void Log(bool boolean)
+        public void Log(object obj)
         {
-            Log(boolean.ToString());
-        }
-
-        public void Log(int integer)
-        {
-            Log(integer.ToString());
+            Log(obj.ToString());
         }
 
         public void Log(string message)
         {
-            string log = $"[{name}] {message}";
+            string log = "";
+            if (logTimestamps)
+                log += $"[{JsonConvert.SerializeObject(DateTime.Now, new JsonSerializerSettings { DateFormatString = "yyyy-MM-ddTHH:mm:ss.fffZ" })}] ";
+
+            log += $"[{name}] [INFO] {message}";
             if (logToLoaderLog)
-            {
                 File.AppendAllText(loaderFileFilepath, log + "\n");
-            }
 
             if (Loader.Instance.ModloaderInitialized)
-            {
                 Debug.Log(log);
-            }
+        }
+
+        public void Detail(object obj)
+        {
+            Log(obj.ToString());
         }
 
         public void Detail(string message)
         {
             if (!logDetails) return;
 
-            string log = $"[{name}] {message}";
+            string log = "";
+            if (logTimestamps)
+                log += $"[{JsonConvert.SerializeObject(DateTime.Now, new JsonSerializerSettings { DateFormatString = "yyyy-MM-ddTHH:mm:ss.fffZ" })}] ";
+
+            log += $"[{name}] [DETAIL] {message}";
             if (logToLoaderLog)
-            {
                 File.AppendAllText(loaderFileFilepath, log + "\n");
-            }
 
             if (Loader.Instance.ModloaderInitialized)
-            {
                 Debug.Log(log);
-            }
         }
 
         public void Error(string message)
         {
-            if (!logDetails) return;
+            string log = "";
+            if (logTimestamps)
+                log += $"[{JsonConvert.SerializeObject(DateTime.Now, new JsonSerializerSettings { DateFormatString = "yyyy-MM-ddTHH:mm:ss.fffZ" })}] ";
 
-            string log = $"[{name}] {message}";
+            log += $"[{name}] [ERROR] {message}";
             if (logToLoaderLog)
-            {
                 File.AppendAllText(loaderFileFilepath, log + "\n");
-            }
 
             if (Loader.Instance.ModloaderInitialized)
-            {
-                Debug.Log(log);
-            }
+                Debug.LogError(log);
+        }
+
+        public void Warn(string message)
+        {
+            string log = "";
+            if (logTimestamps)
+                log += $"[{JsonConvert.SerializeObject(DateTime.Now, new JsonSerializerSettings { DateFormatString = "yyyy-MM-ddTHH:mm:ss.fffZ" })}] ";
+
+            log += $"[{name}] [WARN] {message}";
+            if (logToLoaderLog)
+                File.AppendAllText(loaderFileFilepath, log + "\n");
+
+            if (Loader.Instance.ModloaderInitialized)
+                Debug.LogWarning(log);
         }
     }
 }
