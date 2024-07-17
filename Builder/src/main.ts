@@ -2,7 +2,7 @@ import fs from "fs";
 import chpr from "child_process";
 import path from "path";
 
-const cmd_build_OSLoader = "cd ../OSLoader/ & dotnet build";
+const cmd_build_OSLoader = "cd ../OSLoader/ & dotnet build --configuration Release";
 const cmd_build_assetBundle = "";
 const cmd_build_ProjectReferences = "";
 const cmd_build_LoaderExe = "";
