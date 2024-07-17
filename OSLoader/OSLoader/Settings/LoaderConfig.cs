@@ -7,11 +7,9 @@ using Newtonsoft.Json;
 namespace OSLoader {
     internal class LoaderConfig
     {
-        public bool logDetails;
-        public bool enabled;
-
-        [JsonProperty]
-        private string version;
+        [JsonProperty] public bool logDetails;
+        [JsonProperty] public bool enabled;
+        [JsonProperty] private string version;
 
         [JsonIgnore]
         public Version Version

@@ -40,8 +40,16 @@ namespace OSLoader
         public Loader()
         {
             Instance = this;
-
             Logger.Initialize();
+
+            LoaderConfig.Load(loaderFilepath, configFilepath, loaderConfigFileFilepath, out config);
+
+            if (!config.enabled)
+            {
+                logger.Log("OS Loader disabled. Not initializing.");
+                return;
+            }
+
             logger.Log("OS Loader initializing...");
 
             // When first called, this determines that the game has loaded its main assemblies
@@ -57,7 +65,6 @@ namespace OSLoader
         private void OnGameStart()
         {
             ModloaderInitialized = true;
-            LoaderConfig.Load(loaderFilepath, configFilepath, loaderConfigFileFilepath, out config);
 
             // Asset Bundle
             assetBundle = AssetBundle.LoadFromFile(Path.Combine(loaderFilepath, assetBundleFilepath));

@@ -9,19 +9,18 @@ namespace OSLoader
 {
     public class ModInfo
     {
-        internal ModType modType;
+        [JsonProperty] public ModType modType;
+        [JsonProperty] public string name;
+        [JsonProperty] public string description;
+        [JsonProperty] public bool loadOnStart;
+        [JsonProperty] public string repositoryUrl;
+        [JsonProperty] public string modUrl;
+        [JsonProperty] private string version;
 
         [JsonIgnore]
         internal string infoFilepath;
         [JsonIgnore]
         internal string settingsFilepath;
-
-        public string name;
-        public string description;
-        public bool loadOnStart;
-
-        [JsonProperty]
-        private string version;
 
         [JsonIgnore]
         public Version Version
@@ -29,9 +28,6 @@ namespace OSLoader
             get { return new Version(version); }
             set { version = value.ToString(); }
         }
-
-        public string repositoryUrl;
-        public string modUrl;
 
         public bool IsValid()
         {
