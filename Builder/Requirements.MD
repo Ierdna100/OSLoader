@@ -3,6 +3,7 @@
 -   `NodeJS ^v20.13.1`
 -   `typescript ^5.3.3` - Installed globally
 -   `.NET standard 2.0`
+-   `.NET 8.0`
 -   `Unity 2019.4.40f1`
 
 # Instructions

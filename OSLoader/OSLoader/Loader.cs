@@ -18,7 +18,6 @@ namespace OSLoader
         public bool ModloaderInitialized { get; private set; } = false;
 
         public const string loaderFilepath = @"./OSLoader";
-        public const string configFilepath = @"config";
         public const string loaderConfigFileFilepath = @"loader_config.json";
         public const string modsFilepath = @"mods";
         public const string modsSettingsFilename = @"settings.json";
@@ -42,7 +41,7 @@ namespace OSLoader
             Instance = this;
             Logger.Initialize();
 
-            LoaderConfig.Load(loaderFilepath, configFilepath, loaderConfigFileFilepath, out config);
+            LoaderConfig.Load(loaderFilepath, loaderConfigFileFilepath, out config);
 
             if (!config.enabled)
             {

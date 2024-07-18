@@ -18,12 +18,12 @@ namespace OSLoader {
             set { version = value.ToString(); }
         }
 
-        public static void Load(string loaderFilepath, string configFilepath, string loaderConfigFileFilepath, out LoaderConfig configRef)
+        public static void Load(string loaderFilepath, string loaderConfigFileFilepath, out LoaderConfig configRef)
         {
-            if (File.Exists(Path.Combine(loaderFilepath, configFilepath, loaderConfigFileFilepath)))
+            if (File.Exists(Path.Combine(loaderFilepath, loaderConfigFileFilepath)))
             {
                 Loader.Instance.logger.Log("Config file found, reading...");
-                string rawLoaderConfig = File.ReadAllText(Path.Combine(loaderFilepath, configFilepath, loaderConfigFileFilepath));
+                string rawLoaderConfig = File.ReadAllText(Path.Combine(loaderFilepath, loaderConfigFileFilepath));
                 Loader.Instance.logger.Detail("Raw Loader Config: " + rawLoaderConfig);
 
                 try
@@ -33,7 +33,7 @@ namespace OSLoader {
                     {
                         Loader.Instance.logger.Log("Config file has invalid structure, resetting to default values...");
                         configRef = new LoaderConfig();
-                        File.WriteAllText(Path.Combine(loaderFilepath, configFilepath, loaderConfigFileFilepath), JsonConvert.SerializeObject(configRef, Formatting.Indented));
+                        File.WriteAllText(Path.Combine(loaderFilepath, loaderConfigFileFilepath), JsonConvert.SerializeObject(configRef, Formatting.Indented));
                     }
                     return;
                 }
@@ -47,9 +47,8 @@ namespace OSLoader {
                 Loader.Instance.logger.Log("No config file found, creating file");
             }
 
-            Directory.CreateDirectory(Path.Combine(loaderFilepath, configFilepath));
             configRef = new LoaderConfig();
-            File.WriteAllText(Path.Combine(loaderFilepath, configFilepath, loaderConfigFileFilepath), JsonConvert.SerializeObject(configRef, Formatting.Indented));
+            File.WriteAllText(Path.Combine(loaderFilepath, loaderConfigFileFilepath), JsonConvert.SerializeObject(configRef, Formatting.Indented));
 
             Loader.Instance.logger.logDetails = configRef.logDetails;
         }
