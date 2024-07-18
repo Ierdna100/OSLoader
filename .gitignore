@@ -6,7 +6,12 @@
 node_modules/
 
 #[Dd]ependencies/*.dll
+Dependencies/*
+!Dependencies/instructions.txt
 *.dll
+
+# Builder
+Builder/distributable/*
 
 # User-specific files
 *.rsuser
