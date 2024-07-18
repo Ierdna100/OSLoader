@@ -77,7 +77,7 @@ namespace Installer
             int count = 0;
             foreach (string file in newAssembliesPaths)
             {
-                Console.WriteLine($"{(double)count++ / newAssembliesPaths.Length * 100}% - {Path.GetFileName(file)}");
+                Console.WriteLine($"{(int)((double)count++ / newAssembliesPaths.Length * 100)}% - {Path.GetFileName(file)}");
                 File.Copy(file, Path.Combine(managedPath, Path.GetFileName(file)), true);
             }
             Console.WriteLine();

@@ -76,6 +76,8 @@ function main() {
     log("Copying Facepunch and installer related stuff");
     fs.copyFileSync("./steam_api64/steam_api64.dll", path.join(outputPath, "steam_api64.dll"));
     fs.copyFileSync("../Installer/Installer/bin/Release/net8.0/Installer.exe", path.join(outputPath, "Installer.exe"));
+    fs.copyFileSync("../Installer/Installer/bin/Release/net8.0/Installer.dll", path.join(outputPath, "Installer.dll"));
+    fs.copyFileSync("../Installer/Installer/bin/Release/net8.0/Installer.runtimeconfig.json", path.join(outputPath, "Installer.runtimeconfig.json"));
     fs.copyFileSync("../Installer/Installer/bin/Release/net8.0/Facepunch.Steamworks.Win64.dll", path.join(outputPath, "Facepunch.Steamworks.Win64.dll"));
 
     fs.writeFileSync(path.join(outputPath, "Uninstall.bat"), "Installer.exe uninstall");
