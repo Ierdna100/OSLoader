@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace Installer
 {
-    class Program
+    public class Program
     {
         public const uint obenseuerAppId = 951240;
         public const string OSLoaderFilepathName = @"OSLoader";
@@ -18,7 +18,23 @@ namespace Installer
         public const string winhttpAssemblyName = "winhttp.dll";
         public const string doorstopConfig = "doorstop_config.ini";
 
-        static void Main(string[] args)
+        public static int Main(string[] args)
+        {
+            int exitCode = 1;
+            try
+            {
+                exitCode = Setup(args);
+            }
+            catch { }
+            if (exitCode != 0)
+            {
+                Console.WriteLine("Press any key to continue...");
+            }
+            Console.ReadKey();
+            return exitCode;
+        }
+
+        private static int Setup(string[] args)
         {
             /* Arguments for the future:
                 uninstall: uninstalls the loader
@@ -35,7 +51,7 @@ namespace Installer
             catch (Exception e)
             {
                 Console.WriteLine($"Could not run installer, SteamClient Initialization threw an error: {e}");
-                return;
+                return 1;
             }
 
             if (!SteamApps.IsAppInstalled(obenseuerAppId))
@@ -46,15 +62,16 @@ namespace Installer
             Console.WriteLine();
 
             string installPath = SteamApps.AppInstallDir(obenseuerAppId);
+            SteamClient.Shutdown();
 
             if (args.Length > 0 && !string.IsNullOrEmpty(args[0]) && args[0] == "uninstall")
             {
                 Uninstall(installPath);
-                return;
+                return 0;
             }
 
             Install(installPath);
-            return;
+            return 0;
         }
 
         private static void Install(string installPath)
@@ -74,7 +91,7 @@ namespace Installer
             Console.WriteLine("Replacing game assemblies with unstripped ones...");
             string managedPath = Path.Combine(installPath, obenseuerRelativeManagedFolder);
             string[] newAssembliesPaths = Directory.GetFiles(Path.Combine(installDataFilepath, newAssembliesFilepath));
-            int count = 0;
+            int count = 1;
             foreach (string file in newAssembliesPaths)
             {
                 Console.WriteLine($"{(int)((double)count++ / newAssembliesPaths.Length * 100)}% - {Path.GetFileName(file)}");
@@ -112,7 +129,6 @@ namespace Installer
             // DNE yet
 
             Console.WriteLine("OSLoader installed! Press any key to continue...");
-            Console.ReadKey();
         }
 
         private static void Uninstall(string installPath)
@@ -139,7 +155,6 @@ namespace Installer
             VerifyGameIntegrity();
             Console.WriteLine("Verifying game integrity on Steam...");
             Console.WriteLine("You may now close this window by pressing any key. The uninstallation process will be done when Steam finishes validating the game files");
-            Console.ReadKey();
         }
 
         private static void VerifyGameIntegrity()
