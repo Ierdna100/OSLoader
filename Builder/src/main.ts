@@ -80,7 +80,7 @@ function main() {
     fs.copyFileSync("../Installer/Installer/bin/Release/net8.0/Installer.runtimeconfig.json", path.join(outputPath, "Installer.runtimeconfig.json"));
     fs.copyFileSync("../Installer/Installer/bin/Release/net8.0/Facepunch.Steamworks.Win64.dll", path.join(outputPath, "Facepunch.Steamworks.Win64.dll"));
 
-    fs.writeFileSync(path.join(outputPath, "Uninstall.bat"), "Installer.exe uninstall");
+    fs.writeFileSync(path.join(outputPath, "Uninstall.bat"), "@echo off\nInstaller.exe uninstall\n");
 }
 
 function log(text: string) {
