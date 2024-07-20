@@ -16,6 +16,10 @@ namespace OSLoader
         [JsonProperty] public string repositoryUrl;
         [JsonProperty] public string modUrl;
         [JsonProperty] private string version;
+        [JsonProperty] private string modId;
+        [JsonProperty] private string author;
+        [JsonProperty] private string dllFilepath;
+        [JsonProperty] private string loaderVersion;
 
         [JsonIgnore]
         internal string infoFilepath;
