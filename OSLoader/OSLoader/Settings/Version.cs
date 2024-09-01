@@ -8,12 +8,22 @@ namespace OSLoader
     public class Version
     {
         public readonly bool valid;
+        public readonly bool empty;
         private readonly int major;
         private readonly int minor;
         private readonly int patch;
 
         public Version(string rawVersion)
         {
+            if (string.IsNullOrEmpty(rawVersion))
+            {
+                empty = true;
+                major = 0;
+                minor = 0; 
+                patch = 0;
+                return;
+            }
+
             string[] subVersions = rawVersion.Split('.');
 
             // Malformed version

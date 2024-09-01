@@ -2,74 +2,87 @@
 using System.Collections.Generic;
 using System.Text;
 using OSLoader;
+using UnityEngine;
 
 namespace TestMod
 {
-    class CustomSettingsExample : ModSettings
+    public static class CallbackExamples
+    {
+        public static void OnBoolSetting2(bool newValue)
+        {
+
+        }
+
+        public static void OnBoolSetting3Changed(bool newValue)
+        {
+
+        }
+    }
+
+    public class CustomCallbackHandlerExample : CustomCallbackAttribute
+    {
+        public override void OnChanged()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class CustomSettingsExample : ModSettings
     {
         // All settings must come with a name and a value assigned to them, that is their default.
         // Due to how C# works, a lack of value on primitives will just generate whatever the `default` keyword
-        // generates, or in the case of a string, will error out when trying to load the mod.
+        // generates, or in the case of a string, lists, etc.; will error out when trying to load the mod.
 
-        // The boolean setting only has a single consutrctor
-        [BoolSetting("Boolean Setting Name")]
-        public bool aBooleanSetting = false;
+        [BoolSetting("Bool 0")]
+        public bool boolSetting0;
 
-        // The simple ctor for int settings will show up as an input text box
-        [IntegerSetting("Keyboard Input Int Setting")]
-        public int anIntegerSetting = 0;
+        [BoolSetting("Bool 1")]
+        public bool boolSetting1;
 
-        // If provided with a min and max, as well as a step, a slider will instead be generated
-        [IntegerSetting("Slider Input Int Setting", minValue: 12, maxValue: 20, step: 2)]
-        public int anIntegerSettingThatGeneratesASlider = 14;
+        [Callback(typeof(CallbackExamples), nameof(CallbackExamples.OnBoolSetting2))]
+        [BoolSetting("Bool 2")]
+        public bool boolSetting2;
 
-        // A step of 1 is assumed if none is provided.
-        // Disregard slider here, it must always be true. I will implement non-slider min and max later.
-        [IntegerSetting("Slider Input Int Setting", minValue: 12, maxValue: 20, slider: true)]
-        public int anIntegerSettingThatGeneratesASlider2 = 14;
+        [Callback(typeof(CallbackExamples))]
+        [BoolSetting("Bool 3")]
+        public bool boolSetting3;
 
-        // Same for floats, input text box
-        [FloatSetting("Keyboard Input Float Setting")]
-        public float aFloatSetting = 0f;
+        /* NOT IMPLEMENTED YET
+        [CustomCallbackHandlerExample]
+        [BoolSetting("Bool 4")]
+        public bool boolSetting4;
+        */
 
-        // Same as for integers. Steps can be any arbitrary float.
-        [FloatSetting("Slider Input Float Setting", minValue: 12, maxValue: 20, step: 0.2f)]
-        public float aFloatSettingThatGeneratesASlider = 14f;
+        [EnumSetting("Enum 0")]
+        public StringConstraints constraintsSetting = StringConstraints.NoTrim;
 
-        // Same as for integers. Slider must always be true for the moment.
-        [FloatSetting("Slider Input Float Setting", minValue: 12, maxValue: 20, slider: true)]
-        public float aFloatSettingThatGeneratesASlider2 = 14f;
+        [FloatSettingSlider("Float 0", -1.0f, 1.0f, step: 0.1f, smooth: true)]
+        public float floatSetting0;
 
-        // String settings are just always an input box.
-        [StringSetting("String setting Name")]
-        public string aStringSetting = "Default value";
+        [FloatSettingInputField("Float 1", step: 0.2f)]
+        public float floatSetting1;
 
-        // ------------------------------------------------------------------
-        //                       Extra functionality
-        // ------------------------------------------------------------------
+        [FloatSettingInputField("Float 2", -1.0f, 1.0f, step: 0.2f)]
+        public float floatSetting2;
 
-        // Headers to separate setting sections are also available. No UI is present for them
-        // yet, but they will be registered nonetheless internally.
-        // Works similar to the [Header] attribute for the Unity inspector.
-        [SettingTitle("A header above this setting")]
-        [BoolSetting("")]
-        public bool titleExample = true;
+        [OSLoader.Header("This will be a header")]
 
-        // You can use callbacks by creating your own attribute that inherits the one this does
-        // See its implementation in TestMod.cs
-        // Multiple callbacks are supported
-        [CallbackSettingExample]
-        [CallbackSettingExample2]
-        [BoolSetting("")]
-        public bool callbackExample = true;
+        [FloatSettingSlider("Int 0", -10, 10, step: 1, smooth: true)]
+        public float intSetting0;
 
-        // ------------------------------------------------------------------
-        //                       Currently unsupported
-        // ------------------------------------------------------------------
+        [FloatSettingInputField("Int 1", step: 1)]
+        public float intSetting1;
 
-        // This feature is not supported yet! Do not use it.
-        // String constraints will be supported in the future. These will determine what the user is allowed to input.
-        [StringSetting("", StringConstraints.NoSpaces | StringConstraints.NoAlphas)]
-        public string exampleOfWhatsToCome = "";
+        [FloatSettingInputField("Int 2", -10, 10, step: 1)]
+        public float intSetting2;
+
+        // FORGOT TO IMPLEMENT KEYBIND CONSTRAINTS
+        [KeybindSetting("Keybind 0", keybindConstraints: KeybindConstraints.NoEscape, dissalowedKeys: new KeyCode[] {KeyCode.PageUp, KeyCode.PageDown})]
+        public KeyCode keybindSetting0 = KeyCode.G;
+
+        // LIST ITEMS WILL BE IMPLEMENTED LATER
+
+        [StringSetting("String 0", stringConstraints: StringConstraints.NoTrim, maxLength: 400)]
+        public string stringSetting0 = "Default";
     }
 }
