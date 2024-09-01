@@ -4,7 +4,8 @@ using System.Text;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace OSLoader {
+namespace OSLoader
+{
     internal class LoaderConfig
     {
         [JsonProperty] public bool logDetails;

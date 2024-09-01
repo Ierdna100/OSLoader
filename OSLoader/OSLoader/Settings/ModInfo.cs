@@ -16,10 +16,12 @@ namespace OSLoader
         [JsonProperty] public string repositoryUrl;
         [JsonProperty] public string modUrl;
         [JsonProperty] private string version;
-        [JsonProperty] private string modId;
-        [JsonProperty] private string author;
-        [JsonProperty] private string dllFilepath;
+        [JsonProperty] public string modId;
+        [JsonProperty] public string author;
+        [JsonProperty] public string dllFilepath;
         [JsonProperty] private string loaderVersion;
+        [JsonProperty] private string gameVersion;
+        [JsonProperty] public string[] dependencies;
 
         [JsonIgnore]
         internal string infoFilepath;
@@ -30,14 +32,52 @@ namespace OSLoader
         public Version Version
         {
             get { return new Version(version); }
-            set { version = value.ToString(); }
+            internal set { version = value.ToString(); }
         }
 
-        public bool IsValid()
+        [JsonIgnore]
+        public Version LoaderVersion
+        {
+            get { return new Version(loaderVersion); }
+            internal set { loaderVersion = value.ToString(); }
+        }
+
+        [JsonIgnore]
+        public Version GameVersion
+        {
+            get { return new Version(gameVersion); }
+            set { gameVersion = value.ToString(); }
+        }
+
+        // Returns null if is valid, returns a string message with an error message if it is not
+        public string Validate()
         {
             Loader.Instance.logger.Detail($"Validation check for ModInfo at path {infoFilepath}: name: {name}, version: {version}");
-            return name != null
-                && version != null;
+            if (string.IsNullOrEmpty(name))
+            {
+                return "No name provided!";
+            }
+
+            if (string.IsNullOrEmpty(version))
+            {
+                return "No version provided!";
+            }
+
+            if (!string.IsNullOrEmpty(repositoryUrl) && !(repositoryUrl.Contains("github.com") || repositoryUrl.Contains("gitlab.com"))) {
+                return "Repository URL contains non github link!";
+            }
+
+            if (!string.IsNullOrEmpty(modUrl))
+            {
+                return "Mod URL is not null or empty!";
+            }
+
+            if (string.IsNullOrEmpty(dllFilepath))
+            {
+                return "No DLL filepath provided!";
+            }
+
+            return null;
         }
 
         public void SaveInfo()
