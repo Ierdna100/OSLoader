@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
+using TMPro;
+using UnityEngine.UI;
 
 namespace OSLoader
 {
-    internal class ModSettingUI_Bool : ModSettingUI_Base
+    internal class ModSettingUI_Bool : ModSettingUI_Interactable<bool, BoolSettingAttribute>
     {
-        private bool localValue;
+        public Toggle toggle;
 
-        public override void OnInitialized()
+        public override void OnInitialize(ModSettingDrawer settingDrawer)
         {
-            base.OnInitialized();
+            base.OnInitialize(settingDrawer);
+            toggle.onValueChanged.AddListener(OnValueChanged);
             OnceEnabled();
         }
 
@@ -23,11 +27,6 @@ namespace OSLoader
         {
             localValue = newValue;
             OnSettingChanged();
-        }
-
-        public override void OnSave()
-        {
-            linkedField.SetValue(modEntryUI.mod.actualMod.settings, localValue);
         }
     }
 }

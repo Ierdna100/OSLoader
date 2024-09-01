@@ -5,65 +5,78 @@ using TMPro;
 
 namespace OSLoader
 {
-    internal class ModSettingUI_String : ModSettingUI_Base
+    internal class ModSettingUI_String : ModSettingUI_Interactable<string, StringSettingAttribute>
     {
-        public string localValue;
-        public TMP_InputField input;
+        public TMP_InputField inputField;
 
-        public override void OnInitialized()
+        public override void OnInitialize(ModSettingDrawer settingsDrawer)
         {
-            base.OnInitialized();
-            input.onEndEdit.AddListener(OnEditEnd);
-            input.onDeselect.AddListener(OnEditEnd);
-            input.onValueChanged.AddListener(OnValueChanged);
+            base.OnInitialize(settingsDrawer);
+            inputField.onEndEdit.AddListener(OnEditEnd);
+            inputField.onDeselect.AddListener(OnEditEnd);
+            inputField.onSubmit.AddListener(OnEditEnd);
 
-            StringSettingAttribute _attribute = (StringSettingAttribute)attribute;
-
-            input.characterLimit = _attribute.maxLength == uint.MaxValue ? 0 : (int)_attribute.maxLength;
-            input.characterValidation = TMP_InputField.CharacterValidation.Regex;
+            inputField.characterLimit = attribute.maxLength;
+            inputField.onValidateInput = OnValidateInput;
             OnceEnabled();
+        }
+
+        private char OnValidateInput(string text, int charIndex, char addedChar)
+        {
+            if (attribute.constraints == StringConstraints.None)
+            {
+                return addedChar;
+            }
+
+            if (IsFlagSet(attribute.constraints, StringConstraints.NoSpaces) && addedChar == ' ')
+            {
+                return '\0';
+            }
+
+            if (IsFlagSet(attribute.constraints, StringConstraints.NoAlphas) && char.IsLetter(addedChar))
+            {
+                return '\0';
+            }
+
+            if (IsFlagSet(attribute.constraints, StringConstraints.NoNumerics) && char.IsDigit(addedChar))
+            {
+                return '\0';
+            }
+
+            if (IsFlagSet(attribute.constraints, StringConstraints.NoSpecials) && !char.IsLetter(addedChar) && !char.IsDigit(addedChar))
+            {
+                return '\0';
+            }
+
+            return addedChar;
         }
 
         private void OnEditEnd(string newValue)
         {
-            StringSettingAttribute _attribute = (StringSettingAttribute)attribute;
-
-            // If is empty and we don't allow empties
-            if (newValue == string.Empty && (_attribute.constraints & StringConstraints.NoEmpty) != 0)
+            if (!IsFlagSet(attribute.constraints, StringConstraints.NoTrim))
             {
-                input.text = localValue;
+                newValue = newValue.Trim();
             }
 
-            // If we want to trim (if !NoTrim)
-            if ((_attribute.constraints & StringConstraints.NoTrim) == 0)
+            if (newValue == string.Empty && IsFlagSet(attribute.constraints, StringConstraints.NoEmpty))
             {
-                localValue = newValue.Trim();
+                inputField.text = localValue;
+                return;
             }
-            else
-            {
-                localValue = newValue;
-            }
-            OnSettingChanged();
-        }
 
-        private void OnValueChanged(string newValue)
-        {
-            string oldValue = localValue;
-            StringSettingAttribute _attribute = (StringSettingAttribute)attribute;
+            localValue = newValue;
 
-            // NOTE: TMP_INPUT FIELD ALREADY MAY SUPPORT THIS, CHECK
-            //if (_attribute.constraints & StringConstraints)
             OnSettingChanged();
         }
 
         protected override void OnceEnabled()
         {
-
+            localValue = (string)linkedField.GetValue(modEntryUI.mod.actualMod.settings);
         }
 
-        public override void OnSave()
+        private bool IsFlagSet(StringConstraints constraints, StringConstraints flag)
         {
-            linkedField.SetValue(modEntryUI.mod.actualMod.settings, localValue);
+            return (constraints & flag) != 0;
         }
     }
 }

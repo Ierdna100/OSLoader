@@ -6,8 +6,8 @@ namespace OSLoaderCommons
 {
     public enum ModType
     {
-        standalone,
-        dependency,
-        requiresDependency
+        Standalone,
+        Dependency,
+        RequiresDependency
     }
 }

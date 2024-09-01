@@ -6,13 +6,13 @@ using UnityEngine;
 namespace OSLoader
 {
     [CreateAssetMenu(fileName = "Prefabs")]
-    internal class Prefabs : ScriptableObject
+    internal class MenuPrefabs : ScriptableObject
     {
         public GameObject canvas;
         public GameObject loaderMenu;
         public GameObject modEntry;
 
-        public GameObject settingHeader;
+        public GameObject header;
 
         public GameObject stringSetting;
         public GameObject intSetting;
@@ -20,5 +20,7 @@ namespace OSLoader
         public GameObject floatSetting;
         public GameObject floatSliderSetting;
         public GameObject boolSetting;
+        public GameObject keybindSetting;
+        public GameObject enumSetting;
     }
 }

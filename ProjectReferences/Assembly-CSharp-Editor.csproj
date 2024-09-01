@@ -257,6 +257,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>Assets\Dependencies\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="OSLoader">
+      <HintPath>Assets\Dependencies\OSLoader.dll</HintPath>
+    </Reference>
     <Reference Include="log4netPlastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.14.18\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
     </Reference>
@@ -667,6 +670,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp.csproj">
+      <Project>{ABFC71C6-9C75-7D20-4757-F939F0DFE28E}</Project>
+      <Name>Assembly-CSharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

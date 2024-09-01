@@ -2,17 +2,22 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TMPro;
 
 namespace OSLoader
 {
     internal class ModSettingUI_Header : ModSettingUI_Base
     {
-        public override void OnSave()
+        public TMP_Text header;
+
+        public override void OnInitialize(ModSettingDrawer relatedDrawer)
         {
+            header.text = ((HeaderAttribute)relatedDrawer.relatedAttribute).name;
         }
 
-        protected override void OnceEnabled()
+        public override void OnSave()
         {
+            throw new NotImplementedException("This should never be called, something went wrong...");
         }
     }
 }

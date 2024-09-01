@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using OSLoader;
-using System;
-using System.Reflection;
 
 namespace OSLoader
 {
@@ -76,6 +73,14 @@ namespace OSLoader
             settingsContainer.SetActive(false);
         }
 
+        public void OnDoneSaving()
+        {
+            if (mod.actualMod.HasValidSettings())
+            {
+                mod.actualMod.SaveSettings();
+            }
+        }
+
         private void OnModEnable(bool newValue)
         {
             mod.Load();
@@ -92,56 +97,15 @@ namespace OSLoader
 
             UISettings = new List<ModSettingUI_Base>();
 
-            foreach (ModSetting setting in mod.actualMod.settings.Settings)
+            foreach (ModSettingDrawer settingDrawer in mod.actualMod.settings.SettingDrawers)
             {
-                if (false && setting.header != null)
-                {
-                    GameObject settingUIGO = Instantiate(Loader.Instance.prefabs.settingHeader, settingsContainer.transform);
-                    ModSettingUI_Header headerUI = settingUIGO.GetComponent<ModSettingUI_Header>();
-                    headerUI.title.text = setting.field.GetCustomAttribute<SettingTitleAttribute>().name;
-                    UISettings.Add(headerUI);
-                }
+                var attribute = settingDrawer.relatedAttribute as ModSettingAttribute;
+                GameObject UIGO = Instantiate(settingDrawer.objectToDraw, settingsContainer.transform);
 
-                ModSettingAttribute attribute = setting.field.GetCustomAttribute<ModSettingAttribute>();
-                GameObject UIGO = null;
-                
-                switch (attribute)
-                {
-                    case IntegerSettingAttribute intAttribute:
-                        if (intAttribute.isSliderType)
-                        {
-                            UIGO = Instantiate(Loader.Instance.prefabs.intSliderSetting, settingsContainer.transform);
-                        }
-                        else
-                        {
-                            UIGO = Instantiate(Loader.Instance.prefabs.intSetting, settingsContainer.transform);
-                        }
-                        break;
-                    case StringSettingAttribute stringAttribute:
-                        UIGO = Instantiate(Loader.Instance.prefabs.stringSetting, settingsContainer.transform);
-                        break;
-                    case FloatSettingAttribute floatAttribute:
-                        if (floatAttribute.isSliderType)
-                        {
-                            UIGO = Instantiate(Loader.Instance.prefabs.floatSliderSetting, settingsContainer.transform);
-                        }
-                        else
-                        {
-                            UIGO = Instantiate(Loader.Instance.prefabs.floatSetting, settingsContainer.transform);
-                        }
-                        break;
-                    case BoolSettingAttribute boolAttribute:
-                        UIGO = Instantiate(Loader.Instance.prefabs.boolSetting, settingsContainer.transform);
-                        break;
-                }
-
-                ModSettingUI_Base modSetting = UIGO.GetComponent<ModSettingUI_Base>();
-                modSetting.attribute = attribute;
-                modSetting.linkedField = setting.field;
-                modSetting.onChangedCallbacks = setting.callbacks;
-                modSetting.modEntryUI = this;
-                modSetting.OnInitialized();
-                UISettings.Add(modSetting);
+                ModSettingUI_Base modSettingUI = UIGO.GetComponent<ModSettingUI_Base>();
+                modSettingUI.modEntryUI = this;
+                modSettingUI.OnInitialize(settingDrawer);
+                UISettings.Add(modSettingUI);
             }
 
             SetPositionsOfSettings();
