@@ -25,6 +25,9 @@
 		<Reference Include="UnityEngine.UI">
 			<HintPath>..\..\Dependencies\UnityEngine.UI.dll</HintPath>
 		</Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>..\..\Dependencies\UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
 	</ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

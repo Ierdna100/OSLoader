@@ -24,7 +24,7 @@ namespace OSLoader
         public const string modsInfoFilename = @"info.json";
         public const string assetBundleFilepath = @"loader";
 
-        public Prefabs prefabs;
+        public MenuPrefabs prefabs;
         public ModStates modStates;
 
         public List<ModReference> mods = new List<ModReference>();
@@ -34,7 +34,7 @@ namespace OSLoader
         public AssetBundle assetBundle;
         public LoaderConfig config;
 
-        //public OSScene currentScene;
+        public OSScene currentScene;
         
         public Loader()
         {
@@ -59,6 +59,11 @@ namespace OSLoader
         private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
         {
             if (!ModloaderInitialized) OnGameStart();
+        }
+
+        public void OnSceneFinishedLoading(Scene scene)
+        {
+            currentScene = (OSScene)scene.buildIndex;
         }
 
         private void OnGameStart()
@@ -95,7 +100,7 @@ namespace OSLoader
             }
 
             // Create mod UI
-            prefabs = assetBundle.LoadAllAssets<Prefabs>().SingleOrDefault();
+            prefabs = assetBundle.LoadAllAssets<MenuPrefabs>().SingleOrDefault();
             modStates = assetBundle.LoadAllAssets<ModStates>().SingleOrDefault();
 
             GameObject loaderCanvas = GameObject.Instantiate(prefabs.canvas);
@@ -106,7 +111,7 @@ namespace OSLoader
             logger.Log("Loading mods...");
             foreach (ModReference mod in mods)
             {
-                if (mod.info.loadOnStart) mod.Load(true);
+                if (mod.info.loadOnStart) mod.Load(isCalledByLoadOnStart: true);
             }
             logger.Log("Finished loading mods!");
 

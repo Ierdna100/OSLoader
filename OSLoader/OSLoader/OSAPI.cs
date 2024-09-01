@@ -5,6 +5,7 @@ using System.IO;
 using UnityEngine.Events;
 using Newtonsoft.Json;
 using UnityEngine;
+using System.Linq;
 
 namespace OSLoader
 {
@@ -12,25 +13,17 @@ namespace OSLoader
     {
         public static Version GameVersion
         {
-            get { return new Version(Application.version); }
+            get => new Version(Application.version);
             private set { }
         }
 
-        public static OSScene CurrentScene { get; internal set; }
-
-        public static bool IsModLoaded(string modName)
-        {
-            return false;
+        public static OSScene CurrentScene { 
+            get => Loader.Instance.currentScene;
+            private set { }
         }
 
-        public static bool IsModValid(string modName)
-        {
-            return false;
-        }
+        public static bool IsModLoaded(string modName) => Loader.Instance.mods.Where(e => e.loaded).Count() != 0;
 
-        public static string GetConfigFilepath(Mod mod)
-        {
-            return mod.info.settingsFilepath;
-        }
+        public static bool IsModValid(string modName) => Loader.Instance.mods.Where(e => e.valid).Count() != 0;
     }
 }

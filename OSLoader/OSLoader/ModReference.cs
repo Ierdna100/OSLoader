@@ -11,7 +11,7 @@ namespace OSLoader
 {
     internal class ModReference
     {
-        public string assemblyFilepath;
+        public string modFilepath;
         public bool valid = false;
 
         public ModInfo info;
@@ -21,17 +21,13 @@ namespace OSLoader
 
         public Action generateUISettings;
 
+        public Action onSceneInitializing;
+        public Action onSceneLoaded;
+        public Action onModLoaded;
+
         public ModReference(string filepath)
         {
-            string[] possibleAssembly = Directory.GetFiles(filepath, "*.dll");
-            if (possibleAssembly.Length != 1)
-            {
-                Loader.Instance.logger.Log($"Unable to create mod reference at path {filepath}: No .dll found!");
-                return;
-            }
-
-            assemblyFilepath = possibleAssembly[0];
-
+            modFilepath = filepath;
             string infoFilepath = Path.Combine(filepath, Loader.modsInfoFilename);
             if (!File.Exists(infoFilepath))
             {
@@ -44,9 +40,10 @@ namespace OSLoader
             Loader.Instance.logger.Detail(rawModInfo);
             info = JsonConvert.DeserializeObject<ModInfo>(rawModInfo);
             info.infoFilepath = infoFilepath;
-            if (!info.IsValid())
+            string validation = info.Validate();
+            if (validation != null)
             {
-                Loader.Instance.logger.Log($"Unable to create mod reference at path {filepath}: Info file check failed!");
+                Loader.Instance.logger.Log($"Unable to create mod reference at path {filepath}: {validation}");
                 return;
             }
 
@@ -54,11 +51,11 @@ namespace OSLoader
             valid = true;
         }
 
-        public void Load(bool loadOnStart = false)
+        public void Load(bool isCalledByLoadOnStart = false)
         {
             if (!valid)
             {
-                Loader.Instance.logger.Log($"Failed to load mod {info.name}: Valid flag is not set");
+                Loader.Instance.logger.Log($"Failed to load mod {info.name}: Valid flag is not set!");
                 return;
             }
 
@@ -66,6 +63,12 @@ namespace OSLoader
             {
                 Loader.Instance.logger.Log($"Not loading mod {info.name}: Mod is already loaded!");
                 return;
+            }
+
+            string assemblyFilepath = Path.Combine(modFilepath, info.dllFilepath);
+            if (!File.Exists(assemblyFilepath))
+            {
+                Loader.Instance.logger.Log($"Not loading mod {info.name}: No DLL found at specified filepath!");
             }
 
             Loader.Instance.logger.Detail("Assembly filepath: ");
@@ -86,7 +89,26 @@ namespace OSLoader
             GameObject.DontDestroyOnLoad(modGO);
             actualMod = modGO.GetComponent<Mod>();
             actualMod.info = info;
-            actualMod.OnModLoaded();
+
+            Type modType = actualMod.GetType();
+            foreach (MethodInfo method in modType.GetMethods())
+            {
+                switch (method.Name)
+                {
+                    case "OnSceneInitializing":
+                        onSceneInitializing = (Action)Delegate.CreateDelegate(modType, method);
+                        break;
+                    case "OnSceneLoaded":
+                        onSceneLoaded = (Action)Delegate.CreateDelegate(modType, method);
+                        break;
+                    case "OnModLoaded":
+                        onModLoaded = (Action)Delegate.CreateDelegate(modType, method);
+                        break;
+                }
+            }
+
+            actualMod.InitializeMod();
+            onModLoaded?.Invoke();
             if (actualMod.HasValidSettings())
             {
                 if (!File.Exists(info.settingsFilepath))
@@ -102,14 +124,13 @@ namespace OSLoader
 
             loaded = true;
 
-            if (loadOnStart)
+            if (isCalledByLoadOnStart)
             {
                 int modsLoaded = Loader.Instance.mods.Where(e => e.loaded).Count();
                 int modsToLoad = Loader.Instance.mods.Where(e => e.info.loadOnStart).Count();
                 int percentage = (int)(100f * modsLoaded / modsToLoad);
                 Loader.Instance.logger.Log($"Loaded mod {info.name} ({modsLoaded}/{modsToLoad}) ({percentage}%)");
             }
-
         }
     }
 }

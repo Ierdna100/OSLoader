@@ -4,18 +4,43 @@ using System.Text;
 using Newtonsoft.Json;
 using System.IO;
 using UnityEngine;
+using System.Reflection;
 
 namespace OSLoader
 {
     public class Mod : MonoBehaviour
     {
-        public ModInfo info;
-        public ModSettings settings;
-        public Logger logger;
+        private const string initializerMethodName = "OnInitialize";
 
-        public virtual void OnModLoaded()
+        public ModInfo info;
+        internal ModSettings settings;
+
+        internal void InitializeMod()
         {
-            logger = new Logger(info.name);
+            try
+            {
+                MethodInfo initMethod = GetType().GetMethod(initializerMethodName);
+                if (initMethod == null)
+                {
+                    return;
+                }
+
+                if (initMethod.GetParameters().Length != 0) 
+                {
+                    Loader.Instance.logger.Error($"Mod '{info.name}' could not be loaded because its initializer method has parameters!");
+                    return;
+                }
+
+                initMethod.Invoke(this, null);
+            }
+            catch (AmbiguousMatchException)
+            {
+                Loader.Instance.logger.Error($"Mod '{info.name}' could not be loaded because its main class contains more than one '{initializerMethodName}()' methods!");
+            }
+            catch (Exception e) 
+            {
+                Loader.Instance.logger.Error(e.ToString());
+            }
         }
 
         public void SaveSettings()
@@ -31,7 +56,7 @@ namespace OSLoader
 
         public bool HasValidSettings()
         {
-            return settings?.Settings != null;
+            return settings?.SettingDrawers != null;
         }
     }
 }
