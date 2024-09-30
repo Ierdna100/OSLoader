@@ -29,7 +29,7 @@ namespace OSLoader
 
         internal override GameObject GetObjectToDraw()
         {
-            return Loader.Instance.prefabs.intSetting;
+            return Loader.Instance.prefabs.intSliderSetting;
         }
     }
 }

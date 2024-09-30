@@ -4,7 +4,6 @@ using System.Text;
 
 namespace OSLoader
 {
-    // Declaration is OnChanged<T>(T newValue)
     [AttributeUsage(AttributeTargets.Field)]
     public sealed class CallbackAttribute : Attribute
     {

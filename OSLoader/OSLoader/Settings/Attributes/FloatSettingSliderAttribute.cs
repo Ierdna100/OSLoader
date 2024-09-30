@@ -28,7 +28,7 @@ namespace OSLoader
 
         internal override GameObject GetObjectToDraw()
         {
-            return Loader.Instance.prefabs.floatSetting;
+            return Loader.Instance.prefabs.floatSliderSetting;
         }
     }
 }

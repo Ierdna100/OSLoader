@@ -6,11 +6,11 @@ namespace OSLoader
 {
 
     [AttributeUsage(AttributeTargets.Field)]
-    public sealed class HeaderAttribute : Attribute
+    public sealed class SettingsHeaderAttribute : Attribute
     {
         internal string name;
 
-        public HeaderAttribute(string name)
+        public SettingsHeaderAttribute(string name)
         {
             this.name = name;
         }
