@@ -1188,6 +1188,7 @@ MonoBehaviour:
   settingsContainer: {fileID: 6083284390019619423}
   statusIcon: {fileID: 6083284390870461774}
   UISettings: []
+  settingsOpenSizeDelta: {x: 0, y: 0}
 --- !u!1 &6083284391870224802
 GameObject:
   m_ObjectHideFlags: 0
