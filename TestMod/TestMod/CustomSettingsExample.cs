@@ -19,14 +19,6 @@ namespace TestMod
         }
     }
 
-    public class CustomCallbackHandlerExample : CustomCallbackAttribute
-    {
-        public override void OnChanged()
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     public class CustomSettingsExample : ModSettings
     {
         // All settings must come with a name and a value assigned to them, that is their default.
@@ -47,12 +39,6 @@ namespace TestMod
         [BoolSetting("Bool 3")]
         public bool boolSetting3;
 
-        /* NOT IMPLEMENTED YET
-        [CustomCallbackHandlerExample]
-        [BoolSetting("Bool 4")]
-        public bool boolSetting4;
-        */
-
         [EnumSetting("Enum 0")]
         public StringConstraints constraintsSetting = StringConstraints.NoTrim;
 
@@ -65,7 +51,7 @@ namespace TestMod
         [FloatSettingInputField("Float 2", -1.0f, 1.0f, step: 0.2f)]
         public float floatSetting2;
 
-        [OSLoader.Header("This will be a header")]
+        [SettingsHeader("This will be a header")]
 
         [FloatSettingSlider("Int 0", -10, 10, step: 1, smooth: true)]
         public float intSetting0;
@@ -76,8 +62,8 @@ namespace TestMod
         [FloatSettingInputField("Int 2", -10, 10, step: 1)]
         public float intSetting2;
 
-        // FORGOT TO IMPLEMENT KEYBIND CONSTRAINTS
-        [KeybindSetting("Keybind 0", keybindConstraints: KeybindConstraints.NoEscape, dissalowedKeys: new KeyCode[] {KeyCode.PageUp, KeyCode.PageDown})]
+        // Only partially implemented keybinds, works for mostly everything
+        [KeybindSetting("Keybind 0", keybindConstraints: KeybindConstraints.NoFunctions, dissalowedKeys: new KeyCode[] {KeyCode.K, KeyCode.Alpha0})]
         public KeyCode keybindSetting0 = KeyCode.G;
 
         // LIST ITEMS WILL BE IMPLEMENTED LATER

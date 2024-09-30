@@ -8,9 +8,7 @@ namespace TestMod
     {
         public static TestMod instance;
 
-        public CustomSettingsExample settings;
-
-        public void OnInitialize()
+        public override void InitializeMod()
         {
             instance = this;
             settings = new CustomSettingsExample();
