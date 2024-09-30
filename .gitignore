@@ -481,3 +481,8 @@ FodyWeavers.xsd
 # Temporary auto-generated Android Assets
 /ProjectReferences/[Aa]ssets/[Ss]treamingAssets/aa.meta
 /ProjectReferences/[Aa]ssets/[Ss]treamingAssets/aa/*
+/ProjectReferences/[Aa]ssets/[Ss]treamingAssets/loader
+/ProjectReferences/[Aa]ssets/[Ss]treamingAssets/loader.manifest
+/ProjectReferences/[Aa]ssets/[Ss]treamingAssets/loader.meta
+/ProjectReferences/[Aa]ssets/[Ss]treamingAssets/loader.manifest.meta
+
