@@ -28,22 +28,22 @@ namespace OSLoader
                 return addedChar;
             }
 
-            if (IsFlagSet(attribute.constraints, StringConstraints.NoSpaces) && addedChar == ' ')
+            if (attribute.constraints.HasFlag(StringConstraints.NoSpaces) && addedChar == ' ')
             {
                 return '\0';
             }
 
-            if (IsFlagSet(attribute.constraints, StringConstraints.NoAlphas) && char.IsLetter(addedChar))
+            if (attribute.constraints.HasFlag(StringConstraints.NoAlphas) && char.IsLetter(addedChar))
             {
                 return '\0';
             }
 
-            if (IsFlagSet(attribute.constraints, StringConstraints.NoNumerics) && char.IsDigit(addedChar))
+            if (attribute.constraints.HasFlag(StringConstraints.NoNumerics) && char.IsDigit(addedChar))
             {
                 return '\0';
             }
 
-            if (IsFlagSet(attribute.constraints, StringConstraints.NoSpecials) && !char.IsLetter(addedChar) && !char.IsDigit(addedChar))
+            if (attribute.constraints.HasFlag(StringConstraints.NoSpecials) && !char.IsLetter(addedChar) && !char.IsDigit(addedChar))
             {
                 return '\0';
             }
@@ -53,18 +53,19 @@ namespace OSLoader
 
         private void OnEditEnd(string newValue)
         {
-            if (!IsFlagSet(attribute.constraints, StringConstraints.NoTrim))
+            if (!attribute.constraints.HasFlag(StringConstraints.NoTrim))
             {
                 newValue = newValue.Trim();
             }
 
-            if (newValue == string.Empty && IsFlagSet(attribute.constraints, StringConstraints.NoEmpty))
+            if (newValue == string.Empty && attribute.constraints.HasFlag(StringConstraints.NoEmpty))
             {
                 inputField.text = localValue;
                 return;
             }
 
             localValue = newValue;
+            inputField.text = localValue;
 
             OnSettingChanged();
         }
@@ -72,11 +73,7 @@ namespace OSLoader
         protected override void OnceEnabled()
         {
             localValue = (string)linkedField.GetValue(modEntryUI.mod.actualMod.settings);
-        }
-
-        private bool IsFlagSet(StringConstraints constraints, StringConstraints flag)
-        {
-            return (constraints & flag) != 0;
+            inputField.text = localValue;
         }
     }
 }
