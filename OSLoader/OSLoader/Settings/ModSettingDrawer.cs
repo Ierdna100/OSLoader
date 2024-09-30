@@ -11,12 +11,14 @@ namespace OSLoader
         public GameObject objectToDraw;
         public FieldInfo relatedField;
         public Attribute relatedAttribute;
+        public CallbackAttribute[] callbackAttributes;
 
-        public ModSettingDrawer(GameObject objectToDraw, FieldInfo relatedField, Attribute relatedAttribute)
+        public ModSettingDrawer(GameObject objectToDraw, FieldInfo relatedField, Attribute relatedAttribute, CallbackAttribute[] callbackAttributes)
         {
             this.objectToDraw = objectToDraw;
             this.relatedField = relatedField;
             this.relatedAttribute = relatedAttribute;
+            this.callbackAttributes = callbackAttributes;
         }
     }
 }
