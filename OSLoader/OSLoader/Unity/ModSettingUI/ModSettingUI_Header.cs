@@ -1,6 +1,7 @@
 ﻿using OSLoader;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using TMPro;
 
@@ -12,7 +13,7 @@ namespace OSLoader
 
         public override void OnInitialize(ModSettingDrawer relatedDrawer)
         {
-            header.text = ((HeaderAttribute)relatedDrawer.relatedAttribute).name;
+            header.text = ((SettingsHeaderAttribute)relatedDrawer.relatedAttribute).name;
         }
 
         public override void OnSave()
