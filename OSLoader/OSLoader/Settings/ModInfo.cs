@@ -63,13 +63,13 @@ namespace OSLoader
                 return "No version provided!";
             }
 
-            if (!string.IsNullOrEmpty(repositoryUrl) && !(repositoryUrl.Contains("github.com") || repositoryUrl.Contains("gitlab.com"))) {
-                return "Repository URL contains non github link!";
+            if (string.IsNullOrEmpty(repositoryUrl) || !(repositoryUrl.Contains("github.com") || repositoryUrl.Contains("gitlab.com"))) {
+                repositoryUrl = null;
             }
 
-            if (!string.IsNullOrEmpty(modUrl))
+            if (string.IsNullOrEmpty(modUrl))
             {
-                return "Mod URL is not null or empty!";
+                modUrl = null;
             }
 
             if (string.IsNullOrEmpty(dllFilepath))
