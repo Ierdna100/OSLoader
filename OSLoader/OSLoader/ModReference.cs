@@ -72,9 +72,21 @@ namespace OSLoader
             }
 
             Loader.Instance.logger.Detail("Assembly filepath: ");
+            Loader.Instance.logger.Detail(modFilepath);
+            Loader.Instance.logger.Detail(info.dllFilepath);
             Loader.Instance.logger.Detail(assemblyFilepath);
 
-            Assembly assembly = Assembly.LoadFrom(assemblyFilepath);
+            Assembly assembly;
+            try
+            {
+                assembly = Assembly.LoadFrom(assemblyFilepath);
+            } 
+            catch (FileNotFoundException)
+            {
+                Loader.Instance.logger.Log($"Assembly filepath '{assemblyFilepath}' does not exist! Not loading mod.");
+                return;
+            }
+            
             var entrypoint = from type in assembly.GetTypes()
                              where type.IsSubclassOf(typeof(Mod))
                              select type;
