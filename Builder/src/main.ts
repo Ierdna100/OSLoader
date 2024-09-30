@@ -68,6 +68,10 @@ function main() {
 
     log("Copying loader assetbundle");
     fs.copyFileSync(path.join("../ProjectReferences/Assets/StreamingAssets/loader"), path.join(outputPath, "installData/OSLoaderContents/loader"));
+    fs.copyFileSync(
+        path.join("../ProjectReferences/Assets/StreamingAssets/loader.manifest"),
+        path.join(outputPath, "installData/OSLoaderContents/loader.manifest")
+    );
 
     log("Copying doorstop related files");
     fs.copyFileSync("./doorstop/winhttp.dll", path.join(outputPath, "installData/winhttp.dll"));
@@ -85,7 +89,7 @@ function main() {
 
 function log(text: string) {
     console.log(text);
-    fs.appendFileSync(logFile, text);
+    fs.appendFileSync(logFile, text + "\n");
 }
 
 main();
