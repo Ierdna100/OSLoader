@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using TMPro;
@@ -14,7 +15,7 @@ namespace OSLoader
         public override void OnInitialize(ModSettingDrawer settingDrawer)
         {
             base.OnInitialize(settingDrawer);
-            dropdown.AddOptions(Enum.GetNames(linkedField.GetType()).ToList());
+            dropdown.AddOptions(Enum.GetNames(linkedField.FieldType).ToList());
             dropdown.onValueChanged.AddListener(OnValueChanged);
             OnceEnabled();
         }

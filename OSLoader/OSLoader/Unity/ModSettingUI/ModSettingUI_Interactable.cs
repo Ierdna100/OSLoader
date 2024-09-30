@@ -12,15 +12,10 @@ namespace OSLoader
         protected bool wasModified = false;
         protected T localValue;
 
-        protected List<Action> customCallbacks;
         protected List<Action<T>> callbacks;
 
         protected FieldInfo linkedField;
         protected T2 attribute;
-
-        protected ModEntryUI modEntryUI;
-
-        protected TMP_Text title;
 
         public bool initialized = false;
 
@@ -35,8 +30,7 @@ namespace OSLoader
             if (wasModified)
             {
                 linkedField.SetValue(modEntryUI.mod.actualMod.settings, localValue);
-                callbacks.ForEach(c => c.Invoke(localValue));
-                customCallbacks.ForEach(c => c.Invoke());
+                callbacks?.ForEach(c => c.Invoke(localValue));
             }
         }
 
@@ -46,7 +40,7 @@ namespace OSLoader
             attribute = (T2)relatedDrawer.relatedAttribute;
 
             title.text = attribute.name;
-            RegisterCallbacks();
+            RegisterCallbacks(relatedDrawer);
             initialized = true;
         }
 
@@ -56,32 +50,11 @@ namespace OSLoader
             OnceEnabled();
         }
 
-        public void RegisterCallbacks()
+        public void RegisterCallbacks(ModSettingDrawer relatedDrawer)
         {
-            foreach (Attribute possibleAttribute in linkedField.GetCustomAttributes(true))
+            foreach (CallbackAttribute callbackAttribute in relatedDrawer.callbackAttributes)
             {
-                if (possibleAttribute is CallbackAttribute callbackAttribute)
-                {
-                    MethodInfo method = callbackAttribute.type.GetMethod(callbackAttribute.method);
-                    if (!method.IsStatic)
-                    {
-                        Loader.Instance.logger.Error($"Could not register callback for field '{linkedField.Name}' at {callbackAttribute.type.Name}.{callbackAttribute.method} as it is not static.");
-                        continue;
-                    }
-                    if (method.GetParameters().Length != 1)
-                    {
-                        Loader.Instance.logger.Error($"Could not register callback for field '{linkedField.Name}' at {callbackAttribute.type.Name}.{callbackAttribute.method} as it contains more than 1 parameter.");
-                        continue;
-                    }
-                    if (method.GetParameters()[0].ParameterType != attribute.GetExpectedType())
-                    {
-                        Loader.Instance.logger.Error($"Could not register callback for field '{linkedField.Name}' at {callbackAttribute.type.Name}.{callbackAttribute.method} as the parameter it takes mismatches expected type {attribute.GetExpectedType().Name}");
-                        continue;
-                    }
-                    // TODO: Do methods still bind if the return type doesn't match? Check later
-
-                    callbacks.Add((Action<T>)Delegate.CreateDelegate(callbackAttribute.type, method, true));
-                }
+                //callbacks.Add(callbackAttribute.type.GetMethod(callbackAttribute.method).CreateDelegate(callbackAttribute.type));
             }
         }
 

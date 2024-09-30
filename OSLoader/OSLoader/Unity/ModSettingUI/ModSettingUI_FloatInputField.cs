@@ -34,7 +34,7 @@ namespace OSLoader
 
             if (attribute.step != 0)
             {
-                fNewValue = fNewValue / attribute.step * attribute.step;
+                fNewValue = Mathf.Floor(fNewValue / attribute.step) * attribute.step;
             }
 
             if (attribute.clamped)
@@ -45,6 +45,8 @@ namespace OSLoader
             {
                 localValue = fNewValue;
             }
+
+            inputField.text = localValue.ToString();
 
             OnSettingChanged();
         }

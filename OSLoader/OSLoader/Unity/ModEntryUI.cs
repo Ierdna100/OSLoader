@@ -93,16 +93,28 @@ namespace OSLoader
 
         private void GenerateSettings()
         {
-            if (!mod.actualMod.HasValidSettings()) return;
+            Loader.Instance.logger.Detail($"Generating settings for mod '{mod.info.name}'");
+            if (!mod.actualMod.HasValidSettings())
+            {
+                Loader.Instance.logger.Detail($"Mod '{mod.info.name}' cannot generate settings as they are not valid!");
+                return;
+            }
 
             UISettings = new List<ModSettingUI_Base>();
 
             foreach (ModSettingDrawer settingDrawer in mod.actualMod.settings.SettingDrawers)
             {
-                var attribute = settingDrawer.relatedAttribute as ModSettingAttribute;
                 GameObject UIGO = Instantiate(settingDrawer.objectToDraw, settingsContainer.transform);
 
                 ModSettingUI_Base modSettingUI = UIGO.GetComponent<ModSettingUI_Base>();
+
+#if DEBUG
+                if (settingDrawer.relatedAttribute is ModSettingAttribute attribute)
+                {
+                    Loader.Instance.logger.Detail($"Attempting to initialize setting with name '{attribute.name}'");
+                }
+#endif
+
                 modSettingUI.modEntryUI = this;
                 modSettingUI.OnInitialize(settingDrawer);
                 UISettings.Add(modSettingUI);
@@ -111,6 +123,8 @@ namespace OSLoader
             SetPositionsOfSettings();
 
             settingsButton.gameObject.SetActive(true);
+
+            Loader.Instance.logger.Detail($"Settings successfully generated for mod '{mod.info.name}'");
             settingsButton.onClick.AddListener(OnSettingsToggle);
         }
 
@@ -118,11 +132,11 @@ namespace OSLoader
         {
             int y = initialSpacingAtFirstSetting;
 
-            foreach (ModSettingUI_Base setting in UISettings)
+            foreach (RectTransform settingTransform in settingsContainer.transform)
             {
                 // Reminder that the y axis points down in UI
-                ((RectTransform)setting.transform).localPosition = new Vector3(0, -y, 0);
-                y += (int)((RectTransform)setting.transform).sizeDelta.y;
+                settingTransform.localPosition = new Vector3(0, -y, 0);
+                y += (int)settingTransform.sizeDelta.y;
                 y += spacingBetweenSettings;
             }
 

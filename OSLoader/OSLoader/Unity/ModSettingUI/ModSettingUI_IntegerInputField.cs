@@ -41,6 +41,8 @@ namespace OSLoader
                 localValue = iNewValue;
             }
 
+            inputField.text = localValue.ToString();
+
             OnSettingChanged();
         }
 

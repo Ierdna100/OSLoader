@@ -26,7 +26,7 @@ namespace OSLoader
 
         private void OnValueEntered(float newValue)
         {
-            float steppedNewValue = newValue / attribute.step * attribute.step;
+            float steppedNewValue = Mathf.Floor(newValue / attribute.step) * attribute.step;
             localValue = steppedNewValue;
             valueDisplay.text = localValue.ToString();
             if (!attribute.smooth)
