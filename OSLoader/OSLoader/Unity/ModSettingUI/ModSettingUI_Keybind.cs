@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -27,14 +28,60 @@ namespace OSLoader
             label.text = "...";
         }
 
-        private void Update()
+        private void OnGUI()
         {
             if (awaitingInput && Event.current.isKey)
             {
-                localValue = Event.current.keyCode;
+                Debug.Log(Event.current.ToString());
+                if (attribute.specificDissalowedKeys.Contains(Event.current.keyCode))
+                {
+                    return;
+                }
+
+                if (attribute.constraints.HasFlag(KeybindConstraints.NoFunctions) && Event.current.functionKey)
+                {
+                    return;
+                }
+
+                if (attribute.constraints.HasFlag(KeybindConstraints.NoExistingGameBinds) && IsExistingGameBind(Event.current))
+                {
+                    return;
+                }
+
+                if (attribute.constraints.HasFlag(KeybindConstraints.NoExistingModBinds) && IsExistingModBind(Event.current))
+                {
+                    return;
+                }
+
+                if (attribute.constraints.HasFlag(KeybindConstraints.NoDefaultSteamBinds) && IsExistingDefaultSteamBind(Event.current))
+                {
+                    return;
+                }
+            
+                if (Event.current.keyCode != KeyCode.Return)
+                {
+                    localValue = Event.current.keyCode;
+                }
+
                 toggle.isOn = true;
                 label.text = localValue.ToString();
+                awaitingInput = false;
             }
+        }
+
+        private bool IsExistingGameBind(Event e)
+        {
+            return false;
+        }
+
+        private bool IsExistingModBind(Event e)
+        {
+            return false;
+        }
+
+        private bool IsExistingDefaultSteamBind(Event e)
+        {
+            return e.keyCode == KeyCode.Tab && e.modifiers.HasFlag(EventModifiers.Shift);
         }
 
         protected override void OnceEnabled()
