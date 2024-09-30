@@ -29,7 +29,11 @@ namespace OSLoader
 
         public List<ModReference> mods = new List<ModReference>();
 
+#if DEBUG
         public Logger logger = new Logger("OS Loader", true, true);
+#else
+        public Logger logger = new Logger("OS Loader", false, true);
+#endif
 
         public AssetBundle assetBundle;
         public LoaderConfig config;
