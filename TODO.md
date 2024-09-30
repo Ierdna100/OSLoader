@@ -1,9 +1,22 @@
-- Enum setting
-    - Using Enum.Keysof()
-- Keybind setting
-- Array setting for bools/strings, maps of stuff to toggle on/off
-- OnSceneLoaded callback
-- CurrentScene property
-- Headers for setting menu (to implement in asset bundle)
 - Automate build scripts
 - Static logger reference
+- Template for mods
+- Remaining keybind constraints
+- List settings + SubSetting class
+- logDetails config option doesnt currently do anything, also remove the #if Debug occurences related  to this
+- enabled config option currently doesnt do anything
+- Launch parameter to disable modloader or to force enable it
+- Dependency system
+- Show author info somewhere
+- Check if mod's loader and game version are higher than the real values
+- Implement the OS API
+- UI rework with UI from in-game
+- Make setting titles automatically resize when theyre too large
+- Implement callbacks system
+- Make sure the dependencies text is updated next to version number 
+- Start OSLoader UI open by default
+- Make more usage of the Confirmation textbox to confirm things
+- Add unloading system
+- Add OnSettingsChanged callback for settings if they want to implement it
+- Possibility of a mod to be zipped, the modloader would then unzip it
+- Modloader should check that each mod folder files exist before trying to load them, also check if the .dll exists and make sure we can have mods without a .dll
