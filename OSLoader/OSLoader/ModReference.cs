@@ -120,7 +120,6 @@ namespace OSLoader
             }
 
             actualMod.InitializeMod();
-            onModLoaded?.Invoke();
             if (actualMod.HasValidSettings())
             {
                 if (!File.Exists(info.settingsFilepath))
@@ -134,6 +133,7 @@ namespace OSLoader
             }
             generateUISettings?.Invoke();
 
+            onModLoaded?.Invoke();
             loaded = true;
 
             if (isCalledByLoadOnStart)

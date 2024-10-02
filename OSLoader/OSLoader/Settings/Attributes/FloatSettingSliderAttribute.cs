@@ -13,7 +13,7 @@ namespace OSLoader
         internal float step;
         internal bool smooth;
 
-        public FloatSettingSliderAttribute(string name, float minValue, float maxValue, float step = 1.0f, bool smooth = false) : base(name)
+        public FloatSettingSliderAttribute(string name, float minValue, float maxValue, float step = 0.0f, bool smooth = false) : base(name)
         {
             this.minValue = minValue;
             this.maxValue = maxValue;

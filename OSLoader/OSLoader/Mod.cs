@@ -20,7 +20,7 @@ namespace OSLoader
             if (!HasValidSettings()) return;
             File.WriteAllText(info.settingsFilepath, JsonConvert.SerializeObject(settings, Formatting.Indented));
         }
-
+        
         public bool HasSettings()
         {
             return settings != null;

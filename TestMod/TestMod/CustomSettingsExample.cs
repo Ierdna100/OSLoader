@@ -42,13 +42,13 @@ namespace TestMod
         [EnumSetting("Enum 0")]
         public StringConstraints constraintsSetting = StringConstraints.NoTrim;
 
-        [FloatSettingSlider("Float 0", -1.0f, 1.0f, step: 0.1f, smooth: true)]
+        [FloatSettingSlider("Float 0", minValue: -1.0f, 1.0f, step: 0.1f, smooth: true)]
         public float floatSetting0;
 
         [FloatSettingInputField("Float 1", step: 0.2f)]
         public float floatSetting1;
 
-        [FloatSettingInputField("Float 2", -1.0f, 1.0f, step: 0.2f)]
+        [FloatSettingInputField("Float 2", minValue: -1.0f, 1.0f, step: 0.2f)]
         public float floatSetting2;
 
         [SettingsHeader("This will be a header")]
