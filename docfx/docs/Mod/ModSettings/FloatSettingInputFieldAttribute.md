@@ -6,7 +6,7 @@ Assembly: OSloader.dll
 Source: FloatSettingInputFieldAttribute.cs  
 
 ## Declaration
-public **FloatSettingInputField**(string name, float step = 0.0f)
+public **FloatSettingInputField**(string name, float step = 0.0f)  
 public **FloatSettingInputField**(string name, float minValue, float maxValue, float step = 0.0f)
 
 ## Parameters

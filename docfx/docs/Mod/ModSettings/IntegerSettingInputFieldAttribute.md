@@ -6,7 +6,7 @@ Assembly: OSloader.dll
 Source: IntegerSettingInputFieldAttribute.cs  
 
 ## Declaration
-public **IntegerSettingInputField**(string name, int step = 0)
+public **IntegerSettingInputField**(string name, int step = 0)  
 public **IntegerSettingInputField**(string name, int minValue, int maxValue, int step = 0)
 
 ## Parameters
