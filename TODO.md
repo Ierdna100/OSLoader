@@ -20,3 +20,4 @@
 - Add OnSettingsChanged callback for settings if they want to implement it
 - Possibility of a mod to be zipped, the modloader would then unzip it
 - Modloader should check that each mod folder files exist before trying to load them, also check if the .dll exists and make sure we can have mods without a .dll
+- Make more use of the Confirmation text next to the save button for errors and whatnot
