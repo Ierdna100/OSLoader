@@ -15,8 +15,8 @@ This class also inherits MonoBehaviour, and exists in `DontDestroyOnLoad` at all
 
 You are expected to implement the functionality of `InitializeMod()`, which will be called when your mod will be loaded. It is not recommended to run code in `Start` and `Awake`, as these technically get called first. Instead, you should run non-initialization code in a method named `OnModLoaded`, which will be called via reflection by the modloader.
 
-> [!WARNING]
-> There is currently a bug where the settings are loaded after `OnModLoaded` is called, this will be fixed in a future patch.
+> [!CAUTIOn]
+> There is currently a bug where the modloader expects the methods referenced via reflection to be `static`, make sure they are!
 
 ## Usage
 [!code-csharp[](../Code Examples/Mod.cs)]
