@@ -3,6 +3,10 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+# Temporary, moved for my personal workflow
+Osmo-Modding-Environment/
+OSModProvider/
+
 node_modules/
 _site/
 
