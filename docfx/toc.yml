@@ -1,2 +1,4 @@
-- name: Documentation
+- name: API Documentation
   href: docs/
+- name: User Guide
+  href: user/
